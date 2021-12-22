@@ -3,18 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cinema.MVVM.Views"
+        xmlns:local="clr-namespace:Cinema.MVVM.Views" xmlns:viewmodels="clr-namespace:Cinema.MVVM.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainVM}"
         mc:Ignorable="d"
         Title="Регистрация нового клиента" Height="300" Width="300" ResizeMode="NoResize">
     <Grid>
         <Label Content="Имя" HorizontalAlignment="Left" Margin="10,19,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Text="{ Binding ClientFirstName }"/>
         <Label Content="Фамилия" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Text="{ Binding ClientLastName }"/>
         <Label Content="Отчество" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="280"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Text="{ Binding ClientPatronymic }"/>
         <Label Content="Скидка, %" HorizontalAlignment="Left" Margin="9,151,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Center" Margin="0,177,0,0" VerticalAlignment="Top" Width="280"/>
-        <Button Content="Зарегистрировать" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Height="33" Width="124"/>
+        <ComboBox HorizontalAlignment="Center" Margin="0,177,0,0" VerticalAlignment="Top" Width="280" SelectedItem="{ Binding ClientDiscount }">
+            <ComboBoxItem>5</ComboBoxItem>
+        </ComboBox>
+        <Button Content="Зарегистрировать" HorizontalAlignment="Left" Margin="150,217,0,0" VerticalAlignment="Top" Height="33" Width="124" 
+                Command="{Binding AddNewClient}" CommandParameter="{Binding ElementName=AddNewClient}"/>
     </Grid>
 </Window>

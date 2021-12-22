@@ -19,5 +19,9 @@ namespace Cinema.MVVM.Models
             return db.Client.ToList();
         }
 
+        public static string addClient(string firstname, string lastname, string patronymic, int discount)
+        {
+            return null;
+        }
     }
 }

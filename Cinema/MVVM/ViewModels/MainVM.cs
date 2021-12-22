@@ -25,6 +25,16 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
+        #region WINDOWS DATA
+
+        //Clients
+        public static string ClientFirstName { get; set; }
+        public static string ClientLastName { get; set; }
+        public static string ClientPatronymic { get; set; }
+        public static int ClientDiscount { get; set; }
+
+        #endregion
+
         #region OPEN WINDOWS COMMANDS
 
         private RelayCommand _openAddNewClientWnd;
@@ -39,7 +49,6 @@ namespace Cinema.MVVM.ViewModels
                 );
             }
         }
-
 
         #endregion
 
@@ -56,6 +65,23 @@ namespace Cinema.MVVM.ViewModels
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
         }
+        #endregion
+
+        #region COMMANDS TO ADD
+
+        private RelayCommand _addNewClient;
+        public RelayCommand AddNewClient
+        {
+            get
+            {
+                return _addNewClient ?? new RelayCommand(obj =>
+                    {
+                        
+                    }
+                );
+            }
+        }
+
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
