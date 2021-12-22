@@ -19,12 +19,14 @@ namespace Cinema.MVVM.Models
         public static List<Client> GetClients()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
+
             return db.Client.ToList();
         }
 
         public static string AddClient(string firstname, string lastname, string patronymic, int discount)
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
+
             Client newClient = new Client
             {
                 FirstName = firstname,
@@ -87,6 +89,17 @@ namespace Cinema.MVVM.Models
                 }).ToList<object>();
 
             return films;
+        }
+
+        #endregion
+
+        #region HALLS AND SEATS
+
+        public static List<Hall> GetHalls()
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            return db.Halls.ToList();
         }
 
         #endregion

@@ -51,6 +51,17 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
+        private List<Hall> _hallsList = DataWorker.GetHalls();
+        public List<Hall> HallsList
+        {
+            get => _hallsList;
+            private set
+            {
+                _hallsList = value;
+                NotifyPropertyChanged("HallsList");
+            }
+        }
+
         #endregion
 
 

@@ -99,8 +99,8 @@ namespace Cinema.Context
                 entity.Property(e => e.Number).HasColumnName("number").IsRequired();
                 entity.Property(e => e.Row).HasColumnName("row").IsRequired();
 
-                entity.HasOne(d => d.SeatCategory).WithMany(p => p.Seat).HasForeignKey(d => d.id_Category);
-                entity.HasOne(d => d.Hall).WithMany(p => p.Seat).HasForeignKey(d => d.id_Hall);
+                entity.HasOne(d => d.SeatCategory).WithMany(p => p.Seat).HasForeignKey(d => d.id_сategory);
+                entity.HasOne(d => d.Hall).WithMany(p => p.Seat).HasForeignKey(d => d.id_hall);
             }));
             modelBuilder.Entity((Action<EntityTypeBuilder<SeatCategory>>)(entity =>
             {
