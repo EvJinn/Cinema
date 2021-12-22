@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cinema.MVVM.ViewModels;
 
 namespace Cinema
 {
@@ -22,26 +23,13 @@ namespace Cinema
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IConfiguration _AppConfig;
-
+        public static ListView ClientsView;
         public MainWindow(IConfiguration AppConfig)
         {
             InitializeComponent();
 
-            /* _AppConfig = AppConfig;
-            {
-
-                using (ApplicationContext db = new ApplicationContext(_AppConfig))
-                {
-                    var Clients = db.Client.ToList();
-
-                    foreach (var client in Clients)
-                    {
-                        test.Text += '\n';
-                        test.Text += client.FirstName.ToString();
-                    }
-                }
-            }*/ 
+            DataContext = new MainVM();
+            ClientsView = ClientsList;
         }
     }
 }

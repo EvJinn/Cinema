@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Cinema.MVVM.ViewModels;
 
 namespace Cinema.MVVM.Views
 {
@@ -22,6 +23,7 @@ namespace Cinema.MVVM.Views
         public AddNewClient()
         {
             InitializeComponent();
+            DataContext = new MainVM();
         }
     }
 }

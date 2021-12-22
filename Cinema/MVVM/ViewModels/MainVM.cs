@@ -9,11 +9,15 @@ using System;
 using Cinema.MVVM.Models;
 using Cinema.MVVM.Views;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Cinema.MVVM.ViewModels
 {
     public class MainVM : INotifyPropertyChanged
     {
+        #region DATA LISTS
+
         private List<Client> _clientsList = DataWorker.GetClients();
         public List<Client> ClientsList
         {
@@ -25,14 +29,46 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
+        private List<object> _sessionsList = DataWorker.GetSessions();
+
+        public List<object> SessionsList
+        {
+            get => _sessionsList;
+            private set
+            {
+                _sessionsList = value;
+                NotifyPropertyChanged("SessionsList");
+            }
+        }
+
+        #endregion
+
+
+
         #region WINDOWS DATA
 
         //Clients
         public static string ClientFirstName { get; set; }
         public static string ClientLastName { get; set; }
         public static string ClientPatronymic { get; set; }
-        public static int ClientDiscount { get; set; }
+        public static string ClientDiscount { get; set; }
 
+        private void SetNullValuesToProperties()
+        {
+            //для клиента
+            ClientFirstName = null;
+            ClientLastName = null;
+            ClientPatronymic = null;
+            ClientDiscount = null;
+
+        }
+
+        private void UpdateClientsView()
+        {
+            ClientsList = DataWorker.GetClients();
+            
+            //MainWindow.Clients
+        }
         #endregion
 
         #region OPEN WINDOWS COMMANDS
@@ -52,7 +88,7 @@ namespace Cinema.MVVM.ViewModels
 
         #endregion
 
-        #region OPEN WINDOWS COMMANDS
+        #region WINDOWS METHODS
 
         private void OpenAddClientWindowMethod()
         {
@@ -65,6 +101,16 @@ namespace Cinema.MVVM.ViewModels
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
         }
+        private void SetRedBlockControl(Window wnd, string blockName)
+        {
+            Control block = wnd.FindName(blockName) as Control;
+            block.BorderBrush = Brushes.Red;
+        }
+        private void ShowMessageToUser(string message)
+        {
+            MessageWindow messageWnd = new MessageWindow(message);
+            SetCenterPositionAndOpen(messageWnd);
+        }
         #endregion
 
         #region COMMANDS TO ADD
@@ -76,6 +122,21 @@ namespace Cinema.MVVM.ViewModels
             {
                 return _addNewClient ?? new RelayCommand(obj =>
                     {
+                        Window wnd = obj as Window;
+                        string resStr = "";
+                        if (ClientFirstName == null || ClientFirstName.Replace(" ", "").Length == 0)
+                            SetRedBlockControl(wnd, "FirstNameBlock");
+
+                        if (ClientLastName == null || ClientLastName.Replace(" ", "").Length == 0)
+                            SetRedBlockControl(wnd, "LastNameBlock");
+                        else
+                        {
+                            resStr = DataWorker.AddClient(ClientFirstName, ClientLastName, ClientPatronymic, Convert.ToInt32(ClientDiscount));
+
+                            ShowMessageToUser(resStr);
+                            SetNullValuesToProperties();
+                            wnd.Close();
+                        }
                         
                     }
                 );

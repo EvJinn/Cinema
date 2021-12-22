@@ -119,8 +119,8 @@ namespace Cinema.Context
                 entity.Property(e => e.Start).HasColumnName("start").IsRequired();
                 entity.Property(e => e.Markup).HasColumnName("markup");
 
-                entity.HasOne(d => d.Film).WithMany(p => p.Session).HasForeignKey(d => d.id_Film);
-                entity.HasOne(d => d.Hall).WithMany(p => p.Session).HasForeignKey(d => d.id_Hall);
+                entity.HasOne(d => d.Film).WithMany(p => p.Session).HasForeignKey(d => d.id_film);
+                entity.HasOne(d => d.Hall).WithMany(p => p.Session).HasForeignKey(d => d.id_hall);
             }));
             modelBuilder.Entity((Action<EntityTypeBuilder<Ticket>>)(entity =>
             {

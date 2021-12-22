@@ -13,15 +13,56 @@ namespace Cinema.MVVM.Models
     {
         public static IConfiguration AppConfig;
 
+        #region CLIENTS
+
         public static List<Client> GetClients()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
             return db.Client.ToList();
         }
 
-        public static string addClient(string firstname, string lastname, string patronymic, int discount)
+        public static string AddClient(string firstname, string lastname, string patronymic, int discount)
         {
-            return null;
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+            Client newClient = new Client
+            {
+                FirstName = firstname,
+                LastName = lastname,
+                Patronymic = patronymic,
+                Discount = discount
+            };
+            db.Client.Add(newClient);
+            db.SaveChanges();
+
+            return "Успешно!";
         }
+
+        #endregion
+
+        #region TICKETS
+
+        public static List<object> GetSessions()
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            //return db.Sessions.ToList();
+            var sessions = (from session in db.Sessions
+                           join hall in db.Halls on session.id_hall equals hall.id
+                           join film in db.Films on session.id_film equals film.id
+                           select new
+                           {
+                               id = session.id,
+                               Date = session.Date,
+                               Start = session.Start,
+                               id_hall = session.id_hall,
+                               Hall = hall.Name,
+                               id_film = session.id_film,
+                               Film = film.Name,
+                           }).ToList<object>();
+
+            return sessions;
+        }
+
+        #endregion
     }
 }

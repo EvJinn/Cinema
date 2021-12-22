@@ -4,17 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
-        xmlns:ViewModels="clr-namespace:Cinema.MVVM.ViewModels" d:DataContext="{d:DesignInstance Type=ViewModels:MainVM}" x:Class="Cinema.MainWindow"
+        xmlns:ViewModels="clr-namespace:Cinema.MVVM.ViewModels" x:Class="Cinema.MainWindow"
         mc:Ignorable="d"
         Title="Кинотеатр" Height="450" Width="800">
     <Grid>
         <TextBlock x:Name="test" HorizontalAlignment="Left" Margin="56,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="308" Width="344"/>
         <TabControl>
-            <TabItem Header="Продажа билетов">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
             <TabItem Header="Расписание сеансов">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="217*"/>
+                        <ColumnDefinition Width="577*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView Grid.Column="1" x:Name="SessionsList" ItemsSource="{Binding SessionsList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Path=Date}" Width="100"/>
+                                <GridViewColumn Header="Начало" DisplayMemberBinding="{Binding Path=Start}" Width="100"/>
+                                <GridViewColumn Header="Зал" DisplayMemberBinding="{Binding Path=Hall}" Width="100"/>
+                                <GridViewColumn Header="Фильм" DisplayMemberBinding="{Binding Path=Film}" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
             </TabItem>
             <TabItem Header="Клиенты">
                 <Grid Background="#FFE5E5E5">
