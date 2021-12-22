@@ -30,7 +30,6 @@ namespace Cinema.MVVM.ViewModels
         }
 
         private List<object> _sessionsList = DataWorker.GetSessions();
-
         public List<object> SessionsList
         {
             get => _sessionsList;
@@ -38,6 +37,17 @@ namespace Cinema.MVVM.ViewModels
             {
                 _sessionsList = value;
                 NotifyPropertyChanged("SessionsList");
+            }
+        }
+
+        private List<object> _filmsList = DataWorker.GetFilms();
+        public List<object> FilmsList
+        {
+            get => _filmsList;
+            private set
+            {
+                _filmsList = value;
+                NotifyPropertyChanged("FilmsList");
             }
         }
 

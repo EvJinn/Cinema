@@ -7,9 +7,9 @@ namespace Cinema.Models
     {
         public int id { get; set; }
         public string Name { get; set; }
-        public DateTime Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
-        public int id_AgeRestrict { get; set; }
+        public int id_agerestrict { get; set; }
         public AgeRestrict AgeRestrict { get; set; }
 
         public decimal Markup { get; set; }

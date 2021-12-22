@@ -63,7 +63,7 @@ namespace Cinema.Context
                 entity.Property(e => e.Duration).HasColumnName("duration");
                 entity.Property(e => e.Markup).HasColumnName("markup");
 
-                entity.HasOne(d => d.AgeRestrict).WithMany(p => p.Film).HasForeignKey(d => d.id_AgeRestrict);
+                entity.HasOne(d => d.AgeRestrict).WithMany(p => p.Film).HasForeignKey(d => d.id_agerestrict);
             }));
             modelBuilder.Entity((Action<EntityTypeBuilder<FilmGenre>>)(entity =>
             {
