@@ -24,12 +24,22 @@ namespace Cinema
     public partial class MainWindow : Window
     {
         public static ListView ClientsView;
+        public static ListView HallsView;
+        public static ListView FilmsView;
+        public static ListView SeatsView;
+        public static ListView SessionsView;
+
         public MainWindow(IConfiguration AppConfig)
         {
             InitializeComponent();
 
             DataContext = new MainVM();
+
             ClientsView = ClientsList;
+            HallsView = HallsList;
+            FilmsView = FilmsList;
+            SeatsView = SeatsList;
+            SessionsView = SessionsList;
         }
     }
 }

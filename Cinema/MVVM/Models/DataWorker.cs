@@ -102,6 +102,29 @@ namespace Cinema.MVVM.Models
             return db.Halls.ToList();
         }
 
+        public static List<object> GetSeatsList()
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            //return db.Seats.ToList();
+
+            var seats = (from seat in db.Seats
+                         join seatcategory in db.SeatCategories on seat.id_category equals seatcategory.id
+                         join hall in db.Halls on seat.id_hall equals hall.id
+                         select new
+                         {
+                             id = seat.id,
+                             Number = seat.Number,
+                             Row = seat.Row,
+                             id_category = seat.id_category,
+                             Category = seatcategory.Category,
+                             id_hall = seat.id_hall,
+                             Hall = hall.Name
+                         }).ToList<object>();
+
+            return seats;
+        }
+
         #endregion
     }
 }

@@ -9,7 +9,7 @@ namespace Cinema.Models
         public int Number { get; set; }
         public int Row { get; set; }
 
-        public int id_сategory { get; set; }
+        public int id_category { get; set; }
         public SeatCategory SeatCategory { get; set; }
 
         public int id_hall { get; set; }

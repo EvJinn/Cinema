@@ -62,6 +62,18 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
+        //public Hall SelectedHall { get; set; }
+
+        private List<object> _seatsList = DataWorker.GetSeatsList();
+        public List<object> SeatsList
+        {
+            get => _seatsList;
+            private set
+            {
+                _seatsList = value;
+                NotifyPropertyChanged("SeatsList");
+            }
+        }
         #endregion
 
 
