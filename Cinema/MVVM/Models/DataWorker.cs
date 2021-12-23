@@ -23,7 +23,7 @@ namespace Cinema.MVVM.Models
             return db.Client.ToList();
         }
 
-        public static string AddClient(string firstname, string lastname, string patronymic, int discount)
+        public static string AddClient(string firstname, string lastname, string patronymic, decimal discount)
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
 
@@ -42,7 +42,7 @@ namespace Cinema.MVVM.Models
 
         #endregion
 
-        #region TICKETS
+        #region SESSIONS
 
         public static List<object> GetSessions()
         {
@@ -65,6 +65,24 @@ namespace Cinema.MVVM.Models
                            }).ToList<object>();
 
             return sessions;
+        }
+
+        public static string AddSession(DateTime date, TimeSpan start, int id_hall, int id_film, decimal markup)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            Session newSession = new Session
+            {
+                Date = date,
+                Start = start,
+                id_hall = id_hall,
+                id_film = id_film,
+                Markup = markup
+            };
+            db.Sessions.Add(newSession);
+            db.SaveChanges();
+
+            return "Успешно!";
         }
 
         #endregion

@@ -75,6 +75,17 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
+        //private List<object> _filteredSessionsList = DataWorker.GetSessions();
+        //public List<object> FilteredSessionsList
+        //{
+        //    get => _sessionsList;
+        //    private set
+        //    {
+        //        _sessionsList = value;
+        //        NotifyPropertyChanged("SessionsList");
+        //    }
+        //}
+
         //Фильтры в табе сеансов
         private bool _filterHallIsSelected;
         public bool FilterHallIsSelected
@@ -109,6 +120,8 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
+        public Hall SelectedHall { get; set; }
+
         #endregion
 
 
@@ -119,7 +132,14 @@ namespace Cinema.MVVM.ViewModels
         public static string ClientFirstName { get; set; }
         public static string ClientLastName { get; set; }
         public static string ClientPatronymic { get; set; }
-        public static string ClientDiscount { get; set; }
+        public static decimal ClientDiscount { get; set; }
+
+        //Sessions
+        public static DateTime SessionDate { get; set; }
+        public static TimeSpan SessionStart { get; set; }
+        public static Hall SessionHall { get; set; }
+        public static Film SessionFilm { get; set; }
+        public static decimal SessionMarkup { get; set; }
 
         private void SetNullValuesToProperties()
         {
@@ -154,6 +174,18 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
+        private RelayCommand _openAddNewSessionWnd;
+        public RelayCommand OpenAddNewSessionWnd
+        {
+            get
+            {
+                return _openAddNewSessionWnd ?? new RelayCommand(obj =>
+                    {
+                        OpenAddSessionWindowMethod();
+                    }
+                );
+            }
+        }
         #endregion
 
         #region WINDOWS METHODS
@@ -162,6 +194,11 @@ namespace Cinema.MVVM.ViewModels
         {
             AddNewClient newClientWindow = new AddNewClient();
             SetCenterPositionAndOpen(newClientWindow);
+        }
+        private void OpenAddSessionWindowMethod()
+        {
+            AddNewSessionWindow newSessionWindow = new AddNewSessionWindow();
+            SetCenterPositionAndOpen(newSessionWindow);
         }
         private void SetCenterPositionAndOpen(Window window)
         {
@@ -192,6 +229,7 @@ namespace Cinema.MVVM.ViewModels
                     {
                         Window wnd = obj as Window;
                         string resStr = "";
+
                         if (ClientFirstName == null || ClientFirstName.Replace(" ", "").Length == 0)
                             SetRedBlockControl(wnd, "FirstNameBlock");
 
@@ -199,13 +237,41 @@ namespace Cinema.MVVM.ViewModels
                             SetRedBlockControl(wnd, "LastNameBlock");
                         else
                         {
-                            resStr = DataWorker.AddClient(ClientFirstName, ClientLastName, ClientPatronymic, Convert.ToInt32(ClientDiscount));
+                            resStr = DataWorker.AddClient(ClientFirstName, ClientLastName, ClientPatronymic, ClientDiscount);
 
                             ShowMessageToUser(resStr);
                             SetNullValuesToProperties();
                             wnd.Close();
                         }
-                        
+                    }
+                );
+            }
+        }
+
+        private RelayCommand _addNewSession;
+        public RelayCommand AddNewSession
+        {
+            get
+            {
+                return _addNewSession ?? new RelayCommand(obj =>
+                    {
+                        Window wnd = obj as Window;
+                        string resStr = "";
+
+                        if (SessionHall == null)
+                            SetRedBlockControl(wnd, "HallBox");
+
+                        if (SessionFilm == null)
+                            SetRedBlockControl(wnd, "FilmBox");
+
+                        else
+                        {
+                            resStr = DataWorker.AddSession(SessionDate, SessionStart, SessionHall.id, SessionFilm.id, SessionMarkup);
+
+                            ShowMessageToUser(resStr);
+                            SetNullValuesToProperties();
+                            wnd.Close();
+                        }
                     }
                 );
             }

@@ -30,16 +30,14 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ComboBox x:Name="FilterHallBox" HorizontalAlignment="Center" Margin="0,107,0,0" VerticalAlignment="Top" Width="197" ItemsSource="{Binding HallsList}" DisplayMemberPath="Name"/>
-                    <CheckBox x:Name="FilterHallCheck"  Content="Зал" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" IsChecked="{Binding FilterHallIsSelected}"/>
-                    <CheckBox x:Name="FilterFilmCheck" Content="Фильм" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" IsChecked="{Binding FilterFilmSelected}"/>
-                    <CheckBox x:Name="FilterDateCheck" Content="Дата" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" IsChecked="{Binding FilterDateSelected}"/>
+                    <ComboBox x:Name="FilterHallBox" HorizontalAlignment="Center" Margin="0,107,0,0" VerticalAlignment="Top" Width="197" ItemsSource="{Binding HallsList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedHall}"/>
+                    <CheckBox x:Name="FilterHallCheck"  Content="Зал" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" IsChecked="{Binding FilterHallIsSelected, Mode=OneWay}"/>
+                    <CheckBox x:Name="FilterFilmCheck" Content="Фильм" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" IsChecked="{Binding FilterFilmSelected, Mode=OneWay}"/>
+                    <CheckBox x:Name="FilterDateCheck" Content="Дата" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" IsChecked="{Binding FilterDateSelected, Mode=OneWay}"/>
                     <ComboBox x:Name="FilterFilmBox" HorizontalAlignment="Center" Margin="0,154,0,0" VerticalAlignment="Top" Width="197" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Name"/>
                     <DatePicker x:Name="FilterDateBox" HorizontalAlignment="Center" Margin="0,57,0,0" VerticalAlignment="Top" Width="197"/>
                     <Label Content="Фильтры" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
-                    <Button Content="Создать новый сеанс" HorizontalAlignment="Center" Margin="0,11,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1"/>
-                    <Button Content="Редактировать" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1"/>
-                    <Button Content="Удалить" HorizontalAlignment="Center" Margin="0,93,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1"/>
+                    <Button Content="Создать новый сеанс" HorizontalAlignment="Center" Margin="0,11,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1" Command="{Binding OpenAddNewSessionWnd}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Клиенты">
