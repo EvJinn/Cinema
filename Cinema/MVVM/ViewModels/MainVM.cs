@@ -16,7 +16,7 @@ namespace Cinema.MVVM.ViewModels
 {
     public class MainVM : INotifyPropertyChanged
     {
-        #region DATA LISTS
+        #region DATA FOR BINDINGS
 
         private List<Client> _clientsList = DataWorker.GetClients();
         public List<Client> ClientsList
@@ -62,7 +62,7 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
-        public Hall SelectedHall { get; set; }
+        //public Hall SelectedHall { get; set; }
 
         private List<object> _seatsList = DataWorker.GetSeatsList();
         public List<object> SeatsList
@@ -72,6 +72,40 @@ namespace Cinema.MVVM.ViewModels
             {
                 _seatsList = value;
                 NotifyPropertyChanged("SeatsList");
+            }
+        }
+
+        //Фильтры в табе сеансов
+        private bool _filterHallIsSelected;
+        public bool FilterHallIsSelected
+        {
+            get => _filterHallIsSelected;
+            private set
+            {
+                _filterHallIsSelected = value;
+                NotifyPropertyChanged("FilterHallCheck");
+            }
+        }
+
+        private bool _filterFilmIsSelected;
+        public bool FilterFilmIsSelected
+        {
+            get => _filterFilmIsSelected;
+            private set
+            {
+                _filterFilmIsSelected = value;
+                NotifyPropertyChanged("FilterFilmCheck");
+            }
+        }
+
+        private bool _filterDateIsSelected;
+        public bool FilterDateIsSelected
+        {
+            get => _filterDateIsSelected;
+            private set
+            {
+                _filterDateIsSelected = value;
+                NotifyPropertyChanged("FilterDateCheck");
             }
         }
 
