@@ -30,11 +30,11 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ComboBox HorizontalAlignment="Center" Margin="0,107,0,0" VerticalAlignment="Top" Width="197"/>
+                    <ComboBox x:Name="FilterHallBox" HorizontalAlignment="Center" Margin="0,107,0,0" VerticalAlignment="Top" Width="197" ItemsSource="{Binding HallsList}" DisplayMemberPath="Name"/>
                     <CheckBox Content="Зал" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Фильм" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Дата" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
-                    <ComboBox HorizontalAlignment="Center" Margin="0,154,0,0" VerticalAlignment="Top" Width="197"/>
+                    <ComboBox x:Name="FilterFilmBox" HorizontalAlignment="Center" Margin="0,154,0,0" VerticalAlignment="Top" Width="197" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Name"/>
                     <DatePicker HorizontalAlignment="Center" Margin="0,57,0,0" VerticalAlignment="Top" Width="197"/>
                     <Label Content="Фильтры" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
                     <Button Content="Создать новый сеанс" HorizontalAlignment="Center" Margin="0,11,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1"/>
@@ -95,14 +95,14 @@
                                     <ColumnDefinition Width="150*"/>
                                     <ColumnDefinition Width="439*"/>
                                 </Grid.ColumnDefinitions>
-                                <ListView Grid.Row="1" x:Name="HallsList" ItemsSource="{Binding HallsList}">
+                                <ListView Grid.Row="1" x:Name="HallsList" ItemsSource="{Binding HallsList}" SelectedItem="{Binding SelectedHall}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}" Width="190"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <ListView Grid.Column="2" Grid.Row="1" x:Name="SeatsList" ItemsSource="{Binding SeatsList}" SelectedItem="{Binding SelectedUser}">
+                                <ListView Grid.Column="2" Grid.Row="1" x:Name="SeatsList" ItemsSource="{Binding SeatsList/SelectedHall}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Ряд" DisplayMemberBinding="{Binding Path=Number}" Width="100"/>
