@@ -147,7 +147,7 @@ namespace Cinema.MVVM.ViewModels
             ClientFirstName = null;
             ClientLastName = null;
             ClientPatronymic = null;
-            ClientDiscount = null;
+            ClientDiscount = 0;
 
         }
 
