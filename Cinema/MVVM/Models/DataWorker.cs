@@ -67,6 +67,16 @@ namespace Cinema.MVVM.Models
             return sessions;
         }
 
+        public static string DeleteSession(Session session)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            db.Sessions.Remove(session);
+            db.SaveChanges();
+
+            return "Успешно!";
+        }
+
         public static string AddSession(DateTime date, TimeSpan start, int id_hall, int id_film, decimal markup)
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);

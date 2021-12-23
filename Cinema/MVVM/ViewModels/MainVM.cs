@@ -141,6 +141,12 @@ namespace Cinema.MVVM.ViewModels
         public static Film SessionFilm { get; set; }
         public static decimal SessionMarkup { get; set; }
 
+        //выделение
+        public TabItem SelectedTabItem { get; set; }
+        public static Session SelectedSession { get; set; }
+        public static Client SelectedClient { get; set; }
+        public static Film SelectedFilm { get; set; }
+
         private void SetNullValuesToProperties()
         {
             //для клиента
@@ -149,13 +155,33 @@ namespace Cinema.MVVM.ViewModels
             ClientPatronymic = null;
             ClientDiscount = 0;
 
+            //для сеанса
+            SessionDate = DateTime.MinValue;
+            SessionStart = TimeSpan.Zero;
+            SessionHall = null;
+            SessionFilm = null;
+            SessionMarkup = 0;
+
         }
 
         private void UpdateClientsView()
         {
             ClientsList = DataWorker.GetClients();
-            
-            //MainWindow.Clients
+
+            MainWindow.ClientsView.ItemsSource = null;
+            MainWindow.ClientsView.Items.Clear();
+            MainWindow.ClientsView.ItemsSource = ClientsList;
+            MainWindow.ClientsView.Items.Refresh();
+        }
+
+        private void UpdateSessionView()
+        {
+            SessionsList = DataWorker.GetSessions();
+
+            MainWindow.SessionsView.ItemsSource = null;
+            MainWindow.SessionsView.Items.Clear();
+            MainWindow.SessionsView.ItemsSource = ClientsList;
+            MainWindow.SessionsView.Items.Refresh();
         }
         #endregion
 
@@ -278,6 +304,32 @@ namespace Cinema.MVVM.ViewModels
         }
 
         #endregion
+
+        private RelayCommand deleteItem;
+
+        public RelayCommand DeleteItem
+        {
+            get
+            {
+                return deleteItem ?? new RelayCommand(obj =>
+                    {
+                        string resultStr = "";
+
+                        if (SelectedTabItem.Name == "Sessions" && SelectedSession != null)
+                        {
+                            resultStr = DataWorker.DeleteSession(SelectedSession);
+                            UpdateSessionView();
+                        }
+                        else resultStr = "Ошибка";
+                        
+
+                        //обновление
+                        SetNullValuesToProperties();
+                        ShowMessageToUser(resultStr);
+                    }
+                );
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

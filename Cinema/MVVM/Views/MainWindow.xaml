@@ -9,8 +9,13 @@
         Title="Кинотеатр" Height="450" Width="800">
     <Grid>
         <TextBlock x:Name="test" HorizontalAlignment="Left" Margin="56,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="308" Width="344"/>
-        <TabControl>
-            <TabItem Header="Расписание сеансов">
+        <TabControl SelectedItem="{Binding SelectedTabItem}">
+            <TabItem Header="Расписание сеансов" x:Name="Sessions">
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteItem}"/>
+                    </ContextMenu>
+                </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="92*"/>
@@ -20,7 +25,7 @@
                         <ColumnDefinition Width="217*"/>
                         <ColumnDefinition Width="577*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Grid.Column="1" x:Name="SessionsList" ItemsSource="{Binding SessionsList}" Grid.RowSpan="2">
+                    <ListView Grid.Column="1" x:Name="SessionsList" ItemsSource="{Binding SessionsList}" Grid.RowSpan="2" SelectedItem="{Binding SelectedSession}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Path=Date}" Width="100"/>
