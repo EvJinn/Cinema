@@ -40,6 +40,16 @@ namespace Cinema.MVVM.Models
             return "Успешно!";
         }
 
+        public static string DeleteClient(Client client)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            db.Client.Remove(client);
+            db.SaveChanges();
+
+            return "Успешно!";
+        }
+
         #endregion
 
         #region SESSIONS
@@ -119,6 +129,16 @@ namespace Cinema.MVVM.Models
             return films;
         }
 
+        public static string DeleteFilm(Film film)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            db.Films.Remove(film);
+            db.SaveChanges();
+
+            return "Успешно!";
+        }
+
         #endregion
 
         #region HALLS AND SEATS
@@ -153,6 +173,33 @@ namespace Cinema.MVVM.Models
             return seats;
         }
 
+
+        public static string DeleteHall(Hall hall)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            db.Halls.Remove(hall);
+            db.SaveChanges();
+
+            return "Успешно!";
+        }
+
+        public static string DeleteSeat(Seat seat)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            db.Seats.Remove(seat);
+            db.SaveChanges();
+
+            return "Успешно!";
+        }
+
+        public static List<SeatCategory> GetCategoryList()
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            return db.SeatCategories.ToList();
+        }
         #endregion
     }
 }

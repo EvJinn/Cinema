@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Configuration;
 using System;
-using Cinema.Data.Models;
 
 namespace Cinema.Context
 {
@@ -21,7 +20,6 @@ namespace Cinema.Context
         public DbSet<SeatCategory> SeatCategories { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<Users> Users { get; set; }
 
         public ApplicationContext(IConfiguration configuration)
         {
@@ -132,14 +130,6 @@ namespace Cinema.Context
                 entity.HasOne(d => d.Session).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Session);
                 entity.HasOne(d => d.Seat).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Seat);
                 entity.HasOne(d => d.Client).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Client);
-            }));
-            modelBuilder.Entity((Action<EntityTypeBuilder<Users>>)(entity =>
-            {
-                entity.ToTable("users");
-                entity.HasKey(e => e.id).HasName("id");
-
-                entity.Property(e => e.Login).HasColumnName("login");
-                entity.Property(e => e.Password).HasColumnName("password");
             }));
 
             base.OnModelCreating(modelBuilder);

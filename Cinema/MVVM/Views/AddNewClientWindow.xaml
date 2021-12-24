@@ -14,7 +14,7 @@
         <Label Content="Отчество" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top"/>
         <TextBox Name="PatronymicBox"  HorizontalAlignment="Center" Margin="0,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Text="{ Binding ClientPatronymic }"/>
         <Label Content="Скидка, %" HorizontalAlignment="Left" Margin="9,151,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="DisountBox" HorizontalAlignment="Center" Margin="0,177,0,0" VerticalAlignment="Top" Width="280" SelectedItem="{ Binding ClientDiscount }">
+        <ComboBox Name="DiscountBox" HorizontalAlignment="Center" Margin="0,177,0,0" VerticalAlignment="Top" Width="280" SelectedItem="{ Binding ClientDiscount }">
             <ComboBoxItem>5</ComboBoxItem>
         </ComboBox>
         <Button Content="Зарегистрировать" HorizontalAlignment="Left" Margin="150,217,0,0" VerticalAlignment="Top" Height="33" Width="124" 

@@ -28,6 +28,7 @@ namespace Cinema
         public static ListView FilmsView;
         public static ListView SeatsView;
         public static ListView SessionsView;
+        public static ListView CategoryView;
 
         public MainWindow(IConfiguration AppConfig)
         {
@@ -40,6 +41,7 @@ namespace Cinema
             FilmsView = FilmsList;
             SeatsView = SeatsList;
             SessionsView = SessionsList;
+            CategoryView = CategoryList;
         }
     }
 }

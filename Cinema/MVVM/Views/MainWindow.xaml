@@ -8,7 +8,6 @@
         mc:Ignorable="d"
         Title="Кинотеатр" Height="450" Width="800">
     <Grid>
-        <TextBlock x:Name="test" HorizontalAlignment="Left" Margin="56,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="308" Width="344"/>
         <TabControl SelectedItem="{Binding SelectedTabItem}">
             <TabItem Header="Расписание сеансов" x:Name="Sessions">
                 <TabItem.ContextMenu>
@@ -25,7 +24,7 @@
                         <ColumnDefinition Width="217*"/>
                         <ColumnDefinition Width="577*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Grid.Column="1" x:Name="SessionsList" ItemsSource="{Binding SessionsList}" Grid.RowSpan="2" SelectedItem="{Binding SelectedSession}">
+                    <ListView Grid.Column="1" x:Name="SessionsList" ItemsSource="{Binding SessionsList}" SelectedItem="{Binding SelectedSession}" Grid.RowSpan="2">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Path=Date}" Width="100"/>
@@ -45,13 +44,18 @@
                     <Button Content="Создать новый сеанс" HorizontalAlignment="Center" Margin="0,11,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1" Command="{Binding OpenAddNewSessionWnd}"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Клиенты">
+            <TabItem Header="Клиенты" x:Name="Clients">
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteItem}"/>
+                    </ContextMenu>
+                </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="217*"/>
                         <ColumnDefinition Width="577*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Grid.Column="1" x:Name="ClientsList" ItemsSource="{Binding ClientsList}">
+                    <ListView Grid.Column="1" x:Name="ClientsList" ItemsSource="{Binding ClientsList}" SelectedItem="{Binding SelectedClient}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Path=FirstName}" Width="100"/>
@@ -62,20 +66,23 @@
                         </ListView.View>
                     </ListView>
                     <Button Content="Регистрация нового клиента" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197" Command="{Binding OpenAddNewClientWnd}"/>
-                    <Button Content="Редактировать" HorizontalAlignment="Center" Margin="0,51,0,0" VerticalAlignment="Top" Height="36" Width="197"/>
-                    <Button Content="Удалить" HorizontalAlignment="Center" Margin="0,92,0,0" VerticalAlignment="Top" Height="36" Width="197"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Справочная информация">
                 <Grid Background="#FFE5E5E5">
-                    <TabControl>
-                        <TabItem Header="Фильмы в прокате">
+                    <TabControl SelectedItem="{Binding SelectedTabItem}">
+                        <TabItem Header="Фильмы в прокате" x:Name="Films">
+                            <TabItem.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" Command="{Binding DeleteItem}"/>
+                                </ContextMenu>
+                            </TabItem.ContextMenu>
                             <Grid Background="#FFE5E5E5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="217*"/>
                                     <ColumnDefinition Width="577*"/>
                                 </Grid.ColumnDefinitions>
-                                <ListView Grid.Column="1" x:Name="FilmsList" ItemsSource="{Binding FilmsList}">
+                                <ListView Grid.Column="1" x:Name="FilmsList" ItemsSource="{Binding FilmsList}" SelectedItem="{Binding SelectedFilm}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}" Width="100"/>
@@ -84,10 +91,15 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
+                                <Button Content="Добавить новый фильм" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197" />
                             </Grid>
-
                         </TabItem>
-                        <TabItem Header="Залы">
+                        <TabItem Header="Залы" x:Name="Halls" >
+                            <TabItem.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" Command="{Binding DeleteItem}"/>
+                                </ContextMenu>
+                            </TabItem.ContextMenu>
                             <Grid Background="#FFE5E5E5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25*"/>
@@ -105,24 +117,43 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <ListView Grid.Column="2" Grid.Row="1" x:Name="SeatsList" ItemsSource="{Binding SeatsList/SelectedHall}">
+                                <ListView Grid.Column="2" Grid.Row="1" x:Name="SeatsList" ItemsSource="{Binding SeatsList}" SelectedItem="{Binding SelectedSeat}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Ряд" DisplayMemberBinding="{Binding Path=Number}" Width="100"/>
                                             <GridViewColumn Header="Место" DisplayMemberBinding="{Binding Path=Row}" Width="100"/>
                                             <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Path=Category}" Width="100"/>
+                                            <GridViewColumn Header="Зал" DisplayMemberBinding="{Binding Path=Hall}" Width="100"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
                                 <Label Content="Залы" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 <Label Content="Места" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Button Content="Добавить зал" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="130"/>
+                                <Button Content="Добавить место" Grid.Column="1" HorizontalAlignment="Center" Margin="0,52,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="130"/>
                             </Grid>
                         </TabItem>
                         <TabItem Header="Категория мест">
-                            <Grid Background="#FFE5E5E5"/>
-                        </TabItem>
-                        <TabItem Header="Возрастные ограничения">
-                            <Grid Background="#FFE5E5E5"/>
+                            <TabItem.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" Command="{Binding DeleteItem}"/>
+                                </ContextMenu>
+                            </TabItem.ContextMenu>
+                            <Grid Background="#FFE5E5E5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="217*"/>
+                                    <ColumnDefinition Width="577*"/>
+                                </Grid.ColumnDefinitions>
+                                <ListView Grid.Column="1" x:Name="CategoryList" ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Path=Category}" Width="100"/>
+                                            <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Path=Cost}" Width="100"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Button Content="Добавить новую категорию" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197" />
+                            </Grid>
                         </TabItem>
                     </TabControl>
                 </Grid>

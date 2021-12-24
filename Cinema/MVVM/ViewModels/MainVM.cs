@@ -62,8 +62,6 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
-        //public Hall SelectedHall { get; set; }
-
         private List<object> _seatsList = DataWorker.GetSeatsList();
         public List<object> SeatsList
         {
@@ -72,6 +70,17 @@ namespace Cinema.MVVM.ViewModels
             {
                 _seatsList = value;
                 NotifyPropertyChanged("SeatsList");
+            }
+        }
+
+        private List<SeatCategory> _categoryList = DataWorker.GetCategoryList();
+        public List<SeatCategory> CategoryList
+        {
+            get => _categoryList;
+            private set
+            {
+                _categoryList = value;
+                NotifyPropertyChanged("CategoryList");
             }
         }
 
@@ -120,8 +129,6 @@ namespace Cinema.MVVM.ViewModels
             }
         }
 
-        public Hall SelectedHall { get; set; }
-
         #endregion
 
 
@@ -146,6 +153,8 @@ namespace Cinema.MVVM.ViewModels
         public static Session SelectedSession { get; set; }
         public static Client SelectedClient { get; set; }
         public static Film SelectedFilm { get; set; }
+        public static Hall SelectedHall { get; set; }
+        public static Seat SelectedSeat { get; set; }
 
         private void SetNullValuesToProperties()
         {
@@ -162,6 +171,11 @@ namespace Cinema.MVVM.ViewModels
             SessionFilm = null;
             SessionMarkup = 0;
 
+            //для выделений
+            SelectedSession = null;
+            SelectedClient = null;
+            SelectedFilm = null;
+            SelectedHall = null;
         }
 
         private void UpdateClientsView()
@@ -183,6 +197,37 @@ namespace Cinema.MVVM.ViewModels
             MainWindow.SessionsView.ItemsSource = ClientsList;
             MainWindow.SessionsView.Items.Refresh();
         }
+
+        private void UpdateHallsView()
+        {
+            HallsList = DataWorker.GetHalls();
+
+            MainWindow.HallsView.ItemsSource = null;
+            MainWindow.HallsView.Items.Clear();
+            MainWindow.HallsView.ItemsSource = HallsList;
+            MainWindow.HallsView.Items.Refresh();
+        }
+
+        private void UpdateSeatsView()
+        {
+            SeatsList = DataWorker.GetSeatsList();
+
+            MainWindow.SeatsView.ItemsSource = null;
+            MainWindow.SeatsView.Items.Clear();
+            MainWindow.SeatsView.ItemsSource = SeatsList;
+            MainWindow.SeatsView.Items.Refresh();
+        }
+
+        private void UpdateFilmsView()
+        {
+            FilmsList = DataWorker.GetFilms();
+
+            MainWindow.FilmsView.ItemsSource = null;
+            MainWindow.FilmsView.Items.Clear();
+            MainWindow.FilmsView.ItemsSource = FilmsList;
+            MainWindow.FilmsView.Items.Refresh();
+        }
+
         #endregion
 
         #region OPEN WINDOWS COMMANDS
@@ -257,13 +302,17 @@ namespace Cinema.MVVM.ViewModels
                         string resStr = "";
 
                         if (ClientFirstName == null || ClientFirstName.Replace(" ", "").Length == 0)
-                            SetRedBlockControl(wnd, "FirstNameBlock");
+                            SetRedBlockControl(wnd, "FirstNameBox");
 
                         if (ClientLastName == null || ClientLastName.Replace(" ", "").Length == 0)
-                            SetRedBlockControl(wnd, "LastNameBlock");
+                            SetRedBlockControl(wnd, "LastNameBox");
+
+                        if (ClientDiscount == 0)
+                            SetRedBlockControl(wnd, "DiscountBox");
                         else
                         {
                             resStr = DataWorker.AddClient(ClientFirstName, ClientLastName, ClientPatronymic, ClientDiscount);
+                            UpdateClientsView();
 
                             ShowMessageToUser(resStr);
                             SetNullValuesToProperties();
@@ -293,7 +342,8 @@ namespace Cinema.MVVM.ViewModels
                         else
                         {
                             resStr = DataWorker.AddSession(SessionDate, SessionStart, SessionHall.id, SessionFilm.id, SessionMarkup);
-
+                            UpdateSessionView();
+                            
                             ShowMessageToUser(resStr);
                             SetNullValuesToProperties();
                             wnd.Close();
@@ -320,8 +370,33 @@ namespace Cinema.MVVM.ViewModels
                             resultStr = DataWorker.DeleteSession(SelectedSession);
                             UpdateSessionView();
                         }
+
+                        if (SelectedTabItem.Name == "Clients" && SelectedClient != null)
+                        {
+                            resultStr = DataWorker.DeleteClient(SelectedClient);
+                            UpdateClientsView();
+                        }
+
+                        if (SelectedTabItem.Name == "Halls" && SelectedHall != null)
+                        {
+                            resultStr = DataWorker.DeleteHall(SelectedHall);
+                            UpdateHallsView();
+                            UpdateSeatsView();
+                        }
+
+                        if (SelectedTabItem.Name == "Halls" && SelectedSeat != null)
+                        {
+                            resultStr = DataWorker.DeleteSeat(SelectedSeat);
+                            UpdateSeatsView();
+                        }
+
+                        if (SelectedTabItem.Name == "Films" && SelectedFilm != null)
+                        {
+                            resultStr = DataWorker.DeleteFilm(SelectedFilm);
+                            UpdateFilmsView();
+                        }
+
                         else resultStr = "Ошибка";
-                        
 
                         //обновление
                         SetNullValuesToProperties();
