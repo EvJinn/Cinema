@@ -3,26 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Cinema.MVVM.Views"
         mc:Ignorable="d"
-        Title="Создать новый сеанс" Height="361" Width="300" ResizeMode="NoResize">
+        Title="Создать новый сеанс" Height="361" Width="300" ResizeMode="NoResize" Loaded="AddNewSessionWnd_Loaded">
     <Grid>
         <Label Content="Дата" HorizontalAlignment="Left" Margin="10,19,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="DateBox" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Width="280" Height="24" SelectedDate="{Binding SessionDate}"/>
+        <DatePicker x:Name="DateBox" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Width="280" Height="24" DisplayDate="2022-08-01"/>
 
         <Label Content="Начало" HorizontalAlignment="Left" Margin="11,74,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="StartBox" HorizontalAlignment="Center" Margin="0,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Text="{ Binding SessionStart  }"/>
+        <xctk:TimePicker Name="StartBox" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" Width="280"/>
 
         <Label Content="Зал" HorizontalAlignment="Left" Margin="11,123,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="HallBox" HorizontalAlignment="Center" Margin="0,148,0,0" VerticalAlignment="Top" Width="280" ItemsSource="{Binding HallsList}" DisplayMemberPath="Name" SelectedItem="{ Binding SessionHall }"/>
+        <ComboBox x:Name="HallBox" HorizontalAlignment="Center" Margin="0,148,0,0" VerticalAlignment="Top" Width="280" DisplayMemberPath="Name"/>
 
         <Label Content="Фильм" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="FilmBox" HorizontalAlignment="Center" Margin="0,201,0,0" VerticalAlignment="Top" Width="280" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Name" SelectedItem="{ Binding SessionFilm }"/>
+        <ComboBox x:Name="FilmBox" HorizontalAlignment="Center" Margin="0,201,0,0" VerticalAlignment="Top" Width="280" DisplayMemberPath="Name"/>
 
-        <Button Content="Создать" HorizontalAlignment="Left" Margin="150,277,0,0" VerticalAlignment="Top" Height="33" Width="124" 
-                Command="{Binding AddNewSession}" CommandParameter="{Binding ElementName=AddNewSessionWnd}"/>
+        <Button x:Name="CreateButton" Content="Создать" HorizontalAlignment="Left" Margin="150,277,0,0" VerticalAlignment="Top" Height="33" Width="124" Click="CreateButton_Click"/>
 
-        <Label Content="Наценка" HorizontalAlignment="Left" Margin="12,222,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="MarkupBox" HorizontalAlignment="Left" Margin="12,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Text="{Binding SessionMarkup}"/>
+        <Label Content="Наценка" HorizontalAlignment="Left" Margin="11,222,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="MarkupBox" HorizontalAlignment="Center" Margin="0,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280"/>
     </Grid>
 </Window>

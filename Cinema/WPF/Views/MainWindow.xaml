@@ -12,7 +12,7 @@
             <TabItem Header="Расписание сеансов" x:Name="Sessions" Loaded="Sessions_Loaded">
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Удалить"/>
+                        <MenuItem x:Name="DeleteButton" Header="Удалить" Click="DeleteButton_Click"/>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">
@@ -41,7 +41,7 @@
                     <ComboBox x:Name="FilterFilmBox" HorizontalAlignment="Center" Margin="0,154,0,0" VerticalAlignment="Top" Width="197" DisplayMemberPath="Name"/>
                     <DatePicker x:Name="FilterDateBox" HorizontalAlignment="Center" Margin="0,57,0,0" VerticalAlignment="Top" Width="197" SelectedDateFormat="Short"/>
                     <Label Content="Фильтры" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
-                    <Button Content="Создать новый сеанс" HorizontalAlignment="Center" Margin="0,11,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1"/>
+                    <Button x:Name="CreateSessionButton" Content="Создать новый сеанс" HorizontalAlignment="Center" Margin="0,11,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1" Click="CreateSessionButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Клиенты" x:Name="Clients">

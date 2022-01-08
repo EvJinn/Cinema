@@ -60,22 +60,6 @@ namespace Cinema.WPF.Models
             using ApplicationContext db = new ApplicationContext(AppConfig);
 
             return db.Sessions.Include(e => e.Film).Include(e => e.Hall).ToList();
-            /*var sessions = (from session in db.Sessions
-                           join hall in db.Halls on session.id_hall equals hall.id
-                           join film in db.Films on session.id_film equals film.id
-                           select new
-                           {
-                               id = session.id,
-                               Date = session.Date,
-                               Start = session.Start,
-                               Markup = session.Markup,
-                               id_hall = session.id_hall,
-                               Hall = hall.Name,
-                               id_film = session.id_film,
-                               Film = film.Name,
-                           }).ToList<object>();
-
-            return sessions;*/
         }
 
         public static string DeleteSession(Session session)
@@ -88,7 +72,7 @@ namespace Cinema.WPF.Models
             return "Успешно!";
         }
 
-        public static string AddSession(DateTime date, TimeSpan start, int id_hall, int id_film, decimal markup)
+        public static string AddSession(DateTime date, DateTimeOffset start, int id_hall, int id_film, decimal markup)
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
 
@@ -114,7 +98,7 @@ namespace Cinema.WPF.Models
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
             
-            return db.Films.ToList();
+            return db.Films.Include(e => e.AgeRestrict).ToList();
             /*var films = (from film in db.Films
                 join agerestrict in db.AgeRestricts on film.id_agerestrict equals agerestrict.id
                 select new

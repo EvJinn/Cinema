@@ -7,7 +7,7 @@ namespace Cinema.Models
     {
         public int id { get; set; }
         public DateTime Date { get; set; }
-        public TimeSpan Start { get; set; }
+        public DateTimeOffset Start { get; set; }
 
         public int id_hall { get; set; }
         public Hall Hall { get; set; }
