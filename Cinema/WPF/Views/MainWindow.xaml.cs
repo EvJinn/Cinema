@@ -16,6 +16,7 @@ namespace Cinema
         private List<Session> ListSessions;
         private List<Film> ListFilms;
         private List<Hall> ListHalls;
+        private List<Client> ListClients;
 
         public MainWindow()
         {
@@ -23,8 +24,8 @@ namespace Cinema
 
             ListFilms = DataWorker.GetFilms();
             ListHalls = DataWorker.GetHalls();
-
             ListSessions = DataWorker.GetSessions();
+            ListClients = DataWorker.GetClients();
         }
 
         #region SESSION TAB
@@ -111,9 +112,7 @@ namespace Cinema
             SessionsList.ItemsSource = ListSessions;
         }
 
-        #endregion
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteSessionButton_Click(object sender, RoutedEventArgs e)
         {
             Session SelectedSession = ListSessions.Find(p => p == SessionsList.SelectedItem);
 
@@ -122,5 +121,27 @@ namespace Cinema
             ListSessions = DataWorker.GetSessions();
             SessionsList.ItemsSource = ListSessions;
         }
+
+        #endregion
+
+        #region CLIENTS TAB
+
+        private void Clients_Loaded(object sender, RoutedEventArgs e)
+        {
+            ClientsList.ItemsSource = ListClients;
+        }
+
+        private void CreateClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addNewClientWindow = new AddNewClient();
+            addNewClientWindow.ShowDialog();
+
+            ListClients = DataWorker.GetClients();
+            ClientsList.ItemsSource = ListClients;
+        }
+
+        #endregion
+
+
     }
 }

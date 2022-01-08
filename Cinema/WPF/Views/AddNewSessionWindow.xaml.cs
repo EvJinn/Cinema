@@ -35,16 +35,13 @@ namespace Cinema.MVVM.Views
         {
             string resStr = "";
 
-            //if (/*StartBox.Text == null || StartBox.Text.Replace(" ", "").Length == 0 ||*/ !ValidateDateTimeOffset(StartBox.Text))
-            //    StartBox.BorderBrush = Brushes.Red;
-
             if (HallBox.SelectedItem == null)
                 HallBox.BorderBrush = Brushes.Red;
 
             if (FilmBox.SelectedItem == null)
                 FilmBox.BorderBrush = Brushes.Red;
 
-            if (/*MarkupBox.Text == null || MarkupBox.Text.Replace(" ", "").Length == 0 ||*/ !ValidateMarkup(MarkupBox.Text))
+            if (!ValidateMarkup(MarkupBox.Text))
                 MarkupBox.BorderBrush = Brushes.Red;
 
             else

@@ -12,7 +12,7 @@
             <TabItem Header="Расписание сеансов" x:Name="Sessions" Loaded="Sessions_Loaded">
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem x:Name="DeleteButton" Header="Удалить" Click="DeleteButton_Click"/>
+                        <MenuItem x:Name="DeleteSessionButton" Header="Удалить" Click="DeleteSessionButton_Click"/>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">
@@ -44,7 +44,7 @@
                     <Button x:Name="CreateSessionButton" Content="Создать новый сеанс" HorizontalAlignment="Center" Margin="0,11,0,0" VerticalAlignment="Top" Height="36" Width="197" Grid.Row="1" Click="CreateSessionButton_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Клиенты" x:Name="Clients">
+            <TabItem Header="Клиенты" x:Name="Clients" Loaded="Clients_Loaded">
                 <TabItem.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Удалить"/>
@@ -58,14 +58,14 @@
                     <ListView Grid.Column="1" x:Name="ClientsList">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Имя" Width="100"/>
-                                <GridViewColumn Header="Фамилия" Width="100"/>
-                                <GridViewColumn Header="Отчество" Width="100"/>
-                                <GridViewColumn Header="Скидка" Width="50"/>
+                                <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Path=FirstName}" Width="100"/>
+                                <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Path=LastName}" Width="100"/>
+                                <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Path=Patronymic}" Width="100"/>
+                                <GridViewColumn Header="Скидка" DisplayMemberBinding="{Binding Path=Discount}" Width="50"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button Content="Регистрация нового клиента" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197"/>
+                    <Button x:Name="CreateClientButton" Content="Регистрация нового клиента" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197" Click="CreateClientButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Справочная информация">
