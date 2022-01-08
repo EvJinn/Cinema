@@ -99,19 +99,6 @@ namespace Cinema.WPF.Models
             using ApplicationContext db = new ApplicationContext(AppConfig);
             
             return db.Films.Include(e => e.AgeRestrict).ToList();
-            /*var films = (from film in db.Films
-                join agerestrict in db.AgeRestricts on film.id_agerestrict equals agerestrict.id
-                select new
-                {
-                    id = film.id,
-                    Name = film.Name,
-                    Duration = film.Duration,
-                    id_agerestrict = film.id_agerestrict,
-                    Markup = film.Markup,
-                    AgeRestrict = agerestrict.Name,
-                }).ToList<object>();
-
-            return films;*/
         }
 
         public static string DeleteFilm(Film film)

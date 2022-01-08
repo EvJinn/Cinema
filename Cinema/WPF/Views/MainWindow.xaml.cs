@@ -112,16 +112,6 @@ namespace Cinema
             SessionsList.ItemsSource = ListSessions;
         }
 
-        private void DeleteSessionButton_Click(object sender, RoutedEventArgs e)
-        {
-            Session SelectedSession = ListSessions.Find(p => p == SessionsList.SelectedItem);
-
-            DataWorker.DeleteSession(SelectedSession);
-
-            ListSessions = DataWorker.GetSessions();
-            SessionsList.ItemsSource = ListSessions;
-        }
-
         #endregion
 
         #region CLIENTS TAB
@@ -138,6 +128,15 @@ namespace Cinema
 
             ListClients = DataWorker.GetClients();
             ClientsList.ItemsSource = ListClients;
+        }
+
+        #endregion
+
+        #region FILMS TAB
+
+        private void Films_Loaded(object sender, RoutedEventArgs e)
+        {
+            FilmsList.ItemsSource = ListFilms;
         }
 
         #endregion

@@ -12,7 +12,7 @@
             <TabItem Header="Расписание сеансов" x:Name="Sessions" Loaded="Sessions_Loaded">
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem x:Name="DeleteSessionButton" Header="Удалить" Click="DeleteSessionButton_Click"/>
+                        <MenuItem x:Name="DeleteSessionButton" Header="Редактировать"/>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">
@@ -47,7 +47,7 @@
             <TabItem Header="Клиенты" x:Name="Clients" Loaded="Clients_Loaded">
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Удалить"/>
+                        <MenuItem Header="Редактировать"/>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">
@@ -71,10 +71,10 @@
             <TabItem Header="Справочная информация">
                 <Grid Background="#FFE5E5E5">
                     <TabControl>
-                        <TabItem Header="Фильмы в прокате" x:Name="Films">
+                        <TabItem Header="Фильмы в прокате" x:Name="Films" Loaded="Films_Loaded">
                             <TabItem.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Удалить"/>
+                                    <MenuItem Header="Редактировать"/>
                                 </ContextMenu>
                             </TabItem.ContextMenu>
                             <Grid Background="#FFE5E5E5">
@@ -85,9 +85,9 @@
                                 <ListView Grid.Column="1" x:Name="FilmsList">
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Название" Width="100"/>
-                                            <GridViewColumn Header="Длительность" Width="100"/>
-                                            <GridViewColumn Header="Возрастное ограничение" Width="200"/>
+                                            <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}" Width="250"/>
+                                            <GridViewColumn Header="Длительность" DisplayMemberBinding="{Binding Path=Duration}" Width="100"/>
+                                            <GridViewColumn Header="Возрастное ограничение" DisplayMemberBinding="{Binding Path=AgeRestrict.Name}" Width="150"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
