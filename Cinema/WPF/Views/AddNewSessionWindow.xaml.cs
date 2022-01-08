@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Cinema.MVVM.ViewModels;
 
 namespace Cinema.MVVM.Views
 {
@@ -11,7 +10,6 @@ namespace Cinema.MVVM.Views
         public AddNewSessionWindow()
         {
             InitializeComponent();
-            DataContext = new MainVM();
         }
     }
 }

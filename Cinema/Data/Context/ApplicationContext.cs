@@ -61,7 +61,8 @@ namespace Cinema.Context
                 entity.Property(e => e.Duration).HasColumnName("duration");
                 entity.Property(e => e.Markup).HasColumnName("markup");
 
-                entity.HasOne(d => d.AgeRestrict).WithMany(p => p.Film).HasForeignKey(d => d.id_agerestrict);
+                entity.HasOne(d => d.AgeRestrict).WithMany(p => p.Film).HasForeignKey(d => d.id_agerestrict)
+                    .HasPrincipalKey(p => p.id);
             }));
             modelBuilder.Entity((Action<EntityTypeBuilder<FilmGenre>>)(entity =>
             {
@@ -72,8 +73,10 @@ namespace Cinema.Context
                     e.id_Genre
                 });
 
-                entity.HasOne(d => d.Film).WithMany(p => p.FilmGenre).HasForeignKey(d => d.id_Film);
-                entity.HasOne(d => d.Genre).WithMany(p => p.FilmGenre).HasForeignKey(d => d.id_Genre);
+                entity.HasOne(d => d.Film).WithMany(p => p.FilmGenre).HasForeignKey(d => d.id_Film)
+                    .HasPrincipalKey(p => p.id);
+                entity.HasOne(d => d.Genre).WithMany(p => p.FilmGenre).HasForeignKey(d => d.id_Genre)
+                    .HasPrincipalKey(p => p.id);
             }));
             modelBuilder.Entity((Action<EntityTypeBuilder<Genre>>)(entity =>
             {
@@ -97,8 +100,10 @@ namespace Cinema.Context
                 entity.Property(e => e.Number).HasColumnName("number").IsRequired();
                 entity.Property(e => e.Row).HasColumnName("row").IsRequired();
 
-                entity.HasOne(d => d.SeatCategory).WithMany(p => p.Seat).HasForeignKey(d => d.id_category);
-                entity.HasOne(d => d.Hall).WithMany(p => p.Seat).HasForeignKey(d => d.id_hall);
+                entity.HasOne(d => d.SeatCategory).WithMany(p => p.Seat).HasForeignKey(d => d.id_category)
+                    .HasPrincipalKey(p => p.id);
+                entity.HasOne(d => d.Hall).WithMany(p => p.Seat).HasForeignKey(d => d.id_hall)
+                    .HasPrincipalKey(p => p.id);
             }));
             modelBuilder.Entity((Action<EntityTypeBuilder<SeatCategory>>)(entity =>
             {
@@ -117,8 +122,10 @@ namespace Cinema.Context
                 entity.Property(e => e.Start).HasColumnName("start").IsRequired();
                 entity.Property(e => e.Markup).HasColumnName("markup");
 
-                entity.HasOne(d => d.Film).WithMany(p => p.Session).HasForeignKey(d => d.id_film);
-                entity.HasOne(d => d.Hall).WithMany(p => p.Session).HasForeignKey(d => d.id_hall);
+                entity.HasOne(d => d.Film).WithMany(p => p.Session).HasForeignKey(d => d.id_film)
+                    .HasPrincipalKey(p => p.id).IsRequired();
+                entity.HasOne(d => d.Hall).WithMany(p => p.Session).HasForeignKey(d => d.id_hall)
+                    .HasPrincipalKey(p => p.id).IsRequired();
             }));
             modelBuilder.Entity((Action<EntityTypeBuilder<Ticket>>)(entity =>
             {
@@ -127,9 +134,11 @@ namespace Cinema.Context
 
                 entity.Property(e => e.Cost).HasColumnName("cost");
 
-                entity.HasOne(d => d.Session).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Session);
-                entity.HasOne(d => d.Seat).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Seat);
-                entity.HasOne(d => d.Client).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Client);
+                entity.HasOne(d => d.Session).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Session)
+                    .HasPrincipalKey(p => p.id);
+                entity.HasOne(d => d.Seat).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Seat)
+                    .HasPrincipalKey(p => p.id);
+                entity.HasOne(d => d.Client).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Client).HasPrincipalKey(p=>p.id);
             }));
 
             base.OnModelCreating(modelBuilder);

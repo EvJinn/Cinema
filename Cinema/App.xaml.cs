@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using Cinema.Context;
-using Cinema.MVVM.Models;
-using Cinema.MVVM.ViewModels;
+﻿using System.Windows;
+using Cinema.WPF.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace Cinema
@@ -28,9 +20,7 @@ namespace Cinema
 
             DataWorker.AppConfig = AppConfig;
 
-            var mainVM = new MainVM();
-
-            var mainWindow = new MainWindow(AppConfig) { DataContext = mainVM };
+            var mainWindow = new MainWindow();
             mainWindow.Show();
         }
     }

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Cinema.Context.ApplicationContext" Collapsed="true">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAQAAAAAAAjIAAAAAEIAAAAAAAAEBBAAAgAQ=</HashCode>
+      <FileName>Data\Context\ApplicationContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.AgeRestrict" Collapsed="true">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Data\Models\AgeRestrict.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.Client" Collapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAgg=</HashCode>
+      <FileName>Data\Models\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.Film" Collapsed="true">
+    <Position X="11.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAACAQAAAAAAAAQAAAAIAAAAAAAABQAAAgA=</HashCode>
+      <FileName>Data\Models\Film.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.FilmGenre" Collapsed="true">
+    <Position X="11.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAIAAAAAAAAEBAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Models\FilmGenre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.Genre" Collapsed="true">
+    <Position X="11.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Data\Models\Genre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.Hall" Collapsed="true">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAQAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Data\Models\Hall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.Seat" Collapsed="true">
+    <Position X="11.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAJAAAAAAAAEAAAAAAAAAAAgABAAAAIAAAAgA=</HashCode>
+      <FileName>Data\Models\Seat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.SeatCategory" Collapsed="true">
+    <Position X="11.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQBAAAAAAAAAAAAAAAAAACgA=</HashCode>
+      <FileName>Data\Models\SeatCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.Session" Collapsed="true">
+    <Position X="11.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAICAAAAIAAAAAAAAAAAAABAABAAAAAQAAAgA=</HashCode>
+      <FileName>Data\Models\Session.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.Models.Ticket" Collapsed="true">
+    <Position X="11.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAACAAAQBAAAIAAAAAAAAAAAAAAAgY=</HashCode>
+      <FileName>Data\Models\Ticket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.WPF.Models.DataWorker" Collapsed="true">
+    <Position X="6.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQAAAAAAgAAAAAAAIAAAAAUIAAAAAAACAQADgQAIAAA=</HashCode>
+      <FileName>WPF\Models\DataWorker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cinema.MVVM.Views.AddNewClient" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WPF\Views\AddNewClientWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cinema.MVVM.Views.AddNewSessionWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WPF\Views\AddNewSessionWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cinema.MVVM.Views.MessageWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WPF\Views\MessageWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cinema.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCAAIAAQAAAAAAEAAAAAQEAAAAkAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>WPF\Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cinema.App" Collapsed="true">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

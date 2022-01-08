@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using Cinema.Context;
 using Cinema.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Cinema.MVVM.Models
+namespace Cinema.WPF.Models
 {
     public static class DataWorker
     {
@@ -54,12 +55,12 @@ namespace Cinema.MVVM.Models
 
         #region SESSIONS
 
-        public static List<object> GetSessions()
+        public static List<Session> GetSessions()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
 
-            //return db.Sessions.ToList();
-            var sessions = (from session in db.Sessions
+            return db.Sessions.Include(e => e.Film).Include(e => e.Hall).ToList();
+            /*var sessions = (from session in db.Sessions
                            join hall in db.Halls on session.id_hall equals hall.id
                            join film in db.Films on session.id_film equals film.id
                            select new
@@ -74,7 +75,7 @@ namespace Cinema.MVVM.Models
                                Film = film.Name,
                            }).ToList<object>();
 
-            return sessions;
+            return sessions;*/
         }
 
         public static string DeleteSession(Session session)
@@ -109,12 +110,12 @@ namespace Cinema.MVVM.Models
 
         #region FILMS
 
-        public static List<object> GetFilms()
+        public static List<Film> GetFilms()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
             
-            //return db.Films.ToList();
-            var films = (from film in db.Films
+            return db.Films.ToList();
+            /*var films = (from film in db.Films
                 join agerestrict in db.AgeRestricts on film.id_agerestrict equals agerestrict.id
                 select new
                 {
@@ -126,7 +127,7 @@ namespace Cinema.MVVM.Models
                     AgeRestrict = agerestrict.Name,
                 }).ToList<object>();
 
-            return films;
+            return films;*/
         }
 
         public static string DeleteFilm(Film film)
