@@ -62,16 +62,6 @@ namespace Cinema.WPF.Models
             return db.Sessions.Include(e => e.Film).Include(e => e.Hall).ToList();
         }
 
-        public static string DeleteSession(Session session)
-        {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
-
-            db.Sessions.Remove(session);
-            db.SaveChanges();
-
-            return "Успешно!";
-        }
-
         public static string AddSession(DateTime date, DateTimeOffset start, int id_hall, int id_film, decimal markup)
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
@@ -101,16 +91,6 @@ namespace Cinema.WPF.Models
             return db.Films.Include(e => e.AgeRestrict).ToList();
         }
 
-        public static string DeleteFilm(Film film)
-        {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
-
-            db.Films.Remove(film);
-            db.SaveChanges();
-
-            return "Успешно!";
-        }
-
         #endregion
 
         #region HALLS AND SEATS
@@ -122,48 +102,11 @@ namespace Cinema.WPF.Models
             return db.Halls.ToList();
         }
 
-        public static List<object> GetSeatsList()
+        public static List<Seat> GetSeatsList()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
 
-            //return db.Seats.ToList();
-
-            var seats = (from seat in db.Seats
-                         join seatcategory in db.SeatCategories on seat.id_category equals seatcategory.id
-                         join hall in db.Halls on seat.id_hall equals hall.id
-                         select new
-                         {
-                             id = seat.id,
-                             Number = seat.Number,
-                             Row = seat.Row,
-                             id_category = seat.id_category,
-                             Category = seatcategory.Category,
-                             id_hall = seat.id_hall,
-                             Hall = hall.Name
-                         }).ToList<object>();
-
-            return seats;
-        }
-
-
-        public static string DeleteHall(Hall hall)
-        {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
-
-            db.Halls.Remove(hall);
-            db.SaveChanges();
-
-            return "Успешно!";
-        }
-
-        public static string DeleteSeat(Seat seat)
-        {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
-
-            db.Seats.Remove(seat);
-            db.SaveChanges();
-
-            return "Успешно!";
+            return db.Seats.Include(e => e.Hall).Include(e => e.SeatCategory).ToList();
         }
 
         public static List<SeatCategory> GetCategoryList()

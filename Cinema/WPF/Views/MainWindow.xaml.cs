@@ -17,6 +17,7 @@ namespace Cinema
         private List<Film> ListFilms;
         private List<Hall> ListHalls;
         private List<Client> ListClients;
+        private List<Seat> ListSeats;
 
         public MainWindow()
         {
@@ -26,6 +27,7 @@ namespace Cinema
             ListHalls = DataWorker.GetHalls();
             ListSessions = DataWorker.GetSessions();
             ListClients = DataWorker.GetClients();
+            ListSeats = DataWorker.GetSeatsList();
         }
 
         #region SESSION TAB
@@ -137,6 +139,26 @@ namespace Cinema
         private void Films_Loaded(object sender, RoutedEventArgs e)
         {
             FilmsList.ItemsSource = ListFilms;
+        }
+
+        #endregion
+
+        #region HALLS AND SEATS TAB
+
+        private void Halls_Loaded(object sender, RoutedEventArgs e)
+        {
+            HallsList.ItemsSource = ListHalls;
+        }
+
+        private List<Seat> FilteredSeatsList;
+
+        private void HallsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Hall selectedHall = ListHalls.Find(p => p == HallsList.SelectedItem);
+
+            FilteredSeatsList = ListSeats.Where(p => p.id_hall == selectedHall.id).ToList();
+
+            SeatsList.ItemsSource = FilteredSeatsList;
         }
 
         #endregion
