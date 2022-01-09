@@ -17,6 +17,12 @@ namespace Cinema.WPF.Models
 
         #region CLIENTS
 
+        /// <summary>
+        /// Получить список клиентов из базы данных
+        /// </summary>
+        /// <returns>
+        /// Список клиентов
+        /// </returns>
         public static List<Client> GetClients()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
@@ -24,6 +30,16 @@ namespace Cinema.WPF.Models
             return db.Client.ToList();
         }
 
+        /// <summary>
+        /// Добавить нового клиента в базу данных
+        /// </summary>
+        /// <param name="firstname">Фамилия клиента</param>
+        /// <param name="lastname">Имя клиента</param>
+        /// <param name="patronymic">Отчество клиента</param>
+        /// <param name="discount">Скидка</param>
+        /// <returns>
+        /// Строка результата
+        /// </returns>
         public static string AddClient(string firstname, string lastname, string patronymic, decimal discount)
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
@@ -41,20 +57,16 @@ namespace Cinema.WPF.Models
             return "Успешно!";
         }
 
-        public static string DeleteClient(Client client)
-        {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
-
-            db.Client.Remove(client);
-            db.SaveChanges();
-
-            return "Успешно!";
-        }
-
         #endregion
 
         #region SESSIONS
 
+        /// <summary>
+        /// Получить список сеансов из базы данных
+        /// </summary>
+        /// <returns>
+        /// Список сеансов
+        /// </returns>
         public static List<Session> GetSessions()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
@@ -62,6 +74,17 @@ namespace Cinema.WPF.Models
             return db.Sessions.Include(e => e.Film).Include(e => e.Hall).ToList();
         }
 
+        /// <summary>
+        /// Добавить новый сеанс в базу данных
+        /// </summary>
+        /// <param name="date">Дата проведения</param>
+        /// <param name="start">Время начала</param>
+        /// <param name="id_hall">Зал проведения</param>
+        /// <param name="id_film">Фильм</param>
+        /// <param name="markup">Наценка за сеанс</param>
+        /// <returns>
+        /// Строка результата
+        /// </returns>
         public static string AddSession(DateTime date, DateTimeOffset start, int id_hall, int id_film, decimal markup)
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
@@ -84,6 +107,12 @@ namespace Cinema.WPF.Models
 
         #region FILMS
 
+        /// <summary>
+        /// Получить список фильмов из базы данных
+        /// </summary>
+        /// <returns>
+        /// Список фильмов
+        /// </returns>
         public static List<Film> GetFilms()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
@@ -91,10 +120,56 @@ namespace Cinema.WPF.Models
             return db.Films.Include(e => e.AgeRestrict).ToList();
         }
 
+        /// <summary>
+        /// Получить список возрастных ограничений из базы данных
+        /// </summary>
+        /// <returns>
+        /// Список возрастных ограничений
+        /// </returns>
+        public static List<AgeRestrict> GetAgeRestricts()
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            return db.AgeRestricts.ToList();
+        }
+
+        /// <summary>
+        /// Добавить новый фильм в базу данных
+        /// </summary>
+        /// <param name="name">Название фильма</param>
+        /// <param name="duration">Длительность фильма</param>
+        /// <param name="id_agerestrict">Возрастное ограничение</param>
+        /// <param name="markup">Наценка за фильм</param>
+        /// <returns>
+        /// Строка результата
+        /// </returns>
+        public static string AddFilm(string name, TimeSpan duration, int id_agerestrict, decimal markup)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            Film newFilm = new Film
+            {
+                Name = name,
+                Duration = duration,
+                id_agerestrict = id_agerestrict,
+                Markup = markup
+            };
+            db.Films.Add(newFilm);
+            db.SaveChanges();
+
+            return "Успешно";
+        }
+
         #endregion
 
         #region HALLS AND SEATS
 
+        /// <summary>
+        /// Получить список залов из базы данных
+        /// </summary>
+        /// <returns>
+        /// Список залов
+        /// </returns>
         public static List<Hall> GetHalls()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
@@ -102,6 +177,12 @@ namespace Cinema.WPF.Models
             return db.Halls.ToList();
         }
 
+        /// <summary>
+        /// Получить список мест из базы данных
+        /// </summary>
+        /// <returns>
+        /// Список мест
+        /// </returns>
         public static List<Seat> GetSeatsList()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);
@@ -109,6 +190,12 @@ namespace Cinema.WPF.Models
             return db.Seats.Include(e => e.Hall).Include(e => e.SeatCategory).ToList();
         }
 
+        /// <summary>
+        /// Получить список категорий мест из базы данных
+        /// </summary>
+        /// <returns>
+        /// Список категорий мест
+        /// </returns>
         public static List<SeatCategory> GetCategoryList()
         {
             using ApplicationContext db = new ApplicationContext(AppConfig);

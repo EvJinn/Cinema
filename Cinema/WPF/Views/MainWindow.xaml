@@ -91,7 +91,7 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <Button Content="Добавить новый фильм" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197" />
+                                <Button x:Name="CreateFilmButton" Content="Добавить новый фильм" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197" Click="CreateFilmButton_Click" />
                             </Grid>
                         </TabItem>
                         <TabItem Header="Залы" x:Name="Halls" Loaded="Halls_Loaded" >
@@ -133,7 +133,7 @@
                                 <Button x:Name="AddSeatButton" Content="Добавить место" Grid.Column="1" HorizontalAlignment="Center" Margin="0,52,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="130"/>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Категория мест">
+                        <TabItem x:Name="SeatCategories" Header="Категория мест" Loaded="SeatCategories_Loaded">
                             <TabItem.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="Удалить"/>
@@ -147,8 +147,8 @@
                                 <ListView Grid.Column="1" x:Name="CategoryList">
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Категория" Width="100"/>
-                                            <GridViewColumn Header="Стоимость" Width="100"/>
+                                            <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Path=Category}" Width="100"/>
+                                            <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Path=Cost}" Width="100"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

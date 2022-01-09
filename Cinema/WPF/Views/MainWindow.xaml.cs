@@ -5,6 +5,7 @@ using Cinema.WPF.Models;
 using System.Linq;
 using Cinema.Models;
 using Cinema.MVVM.Views;
+using Cinema.WPF.Views;
 
 namespace Cinema
 {
@@ -18,6 +19,8 @@ namespace Cinema
         private List<Hall> ListHalls;
         private List<Client> ListClients;
         private List<Seat> ListSeats;
+        private List<SeatCategory> ListSeatCategories;
+        private List<AgeRestrict> ListAgeRestricts;
 
         public MainWindow()
         {
@@ -28,6 +31,8 @@ namespace Cinema
             ListSessions = DataWorker.GetSessions();
             ListClients = DataWorker.GetClients();
             ListSeats = DataWorker.GetSeatsList();
+            ListSeatCategories = DataWorker.GetCategoryList();
+            ListAgeRestricts = DataWorker.GetAgeRestricts();
         }
 
         #region SESSION TAB
@@ -141,6 +146,15 @@ namespace Cinema
             FilmsList.ItemsSource = ListFilms;
         }
 
+        private void CreateFilmButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addNewFilmWindow = new AddNewFilmWindow(ListAgeRestricts);
+            addNewFilmWindow.ShowDialog();
+
+            ListFilms = DataWorker.GetFilms();
+            FilmsList.ItemsSource = ListFilms;
+        }
+
         #endregion
 
         #region HALLS AND SEATS TAB
@@ -161,8 +175,14 @@ namespace Cinema
             SeatsList.ItemsSource = FilteredSeatsList;
         }
 
+        private void SeatCategories_Loaded(object sender, RoutedEventArgs e)
+        {
+            CategoryList.ItemsSource = ListSeatCategories;
+        }
+
+
         #endregion
 
-
+        
     }
 }

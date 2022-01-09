@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Cinema.MVVM.Views"
         mc:Ignorable="d"
-        Title="Создать новый сеанс" Height="361" Width="300" ResizeMode="NoResize" Loaded="AddNewSessionWnd_Loaded">
+        Title="Создать новый сеанс" Height="340" Width="300" ResizeMode="NoResize" Loaded="AddNewSessionWnd_Loaded">
     <Grid>
         <Label Content="Дата" HorizontalAlignment="Left" Margin="10,19,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="DateBox" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Width="280" Height="24" DisplayDate="2022-08-01"/>
