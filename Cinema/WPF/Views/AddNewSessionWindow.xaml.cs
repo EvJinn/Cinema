@@ -12,18 +12,18 @@ namespace Cinema.MVVM.Views
     /// </summary>
     public partial class AddNewSessionWindow : Window
     {
-        private List<Film> ListFilms;
-        private List<Hall> ListHalls;
+        private List<Film> _listFilms;
+        private List<Hall> _listHalls;
 
         public AddNewSessionWindow(List<Film> listFilms, List<Hall> listHalls)
         {
             InitializeComponent();
 
-            ListFilms = listFilms;
-            ListHalls = listHalls;
+            _listFilms = listFilms;
+            _listHalls = listHalls;
 
-            HallBox.ItemsSource = listHalls;
-            FilmBox.ItemsSource = listFilms;
+            HallBox.ItemsSource = _listHalls;
+            FilmBox.ItemsSource = _listFilms;
         }
 
         private void AddNewSessionWnd_Loaded(object sender, RoutedEventArgs e)
@@ -33,8 +33,6 @@ namespace Cinema.MVVM.Views
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            string resStr = "";
-
             if (HallBox.SelectedItem == null)
                 HallBox.BorderBrush = Brushes.Red;
 
@@ -46,12 +44,12 @@ namespace Cinema.MVVM.Views
 
             else
             {
-                Hall selectedHall = ListHalls.Find(p => p == HallBox.SelectedItem);
-                Film selectedFilm = ListFilms.Find(p => p == FilmBox.SelectedItem);
+                Hall selectedHall = _listHalls.Find(p => p == HallBox.SelectedItem);
+                Film selectedFilm = _listFilms.Find(p => p == FilmBox.SelectedItem);
 
                 DateTime date = DateBox.SelectedDate ?? DateTime.Now;
 
-                resStr = DataWorker.AddSession(date, (DateTimeOffset)StartBox.Value, selectedHall.id, selectedFilm.id, Convert.ToDecimal(MarkupBox.Text));
+                string resStr = DataWorker.AddSession(date, (DateTimeOffset)StartBox.Value, selectedHall.id, selectedFilm.id, Convert.ToDecimal(MarkupBox.Text));
 
                 MessageBox.Show(resStr, "Уведомление", MessageBoxButton.OK, MessageBoxImage.None);
                 
@@ -61,8 +59,5 @@ namespace Cinema.MVVM.Views
 
         private bool ValidateMarkup(string markup)
             => decimal.TryParse(markup, out decimal check);
-
-        private bool ValidateDateTimeOffset(string timeSpan)
-            => DateTimeOffset.TryParse(timeSpan, out DateTimeOffset check);
     }
 }

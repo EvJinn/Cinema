@@ -27,8 +27,6 @@ namespace Cinema.WPF.Views
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            string resStr = "";
-
             if (NameBox.Text.Length == 0 || NameBox.Text.Replace(" ", "").Length == 0)
                 NameBox.BorderBrush = Brushes.Red;
 
@@ -37,11 +35,10 @@ namespace Cinema.WPF.Views
 
             else
             {
-                resStr = DataWorker.AddCategory(NameBox.Text, Convert.ToDecimal(CostBox.Text));
-
+                string resStr = DataWorker.AddCategory(NameBox.Text, Convert.ToDecimal(CostBox.Text));
                 MessageBox.Show(resStr, "Уведомление", MessageBoxButton.OK, MessageBoxImage.None);
 
-                this.Close();
+                Close();
             }
         }
 

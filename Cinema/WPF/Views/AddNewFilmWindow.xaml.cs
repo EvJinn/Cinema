@@ -21,21 +21,19 @@ namespace Cinema.WPF.Views
     /// </summary>
     public partial class AddNewFilmWindow : Window
     {
-        private List<AgeRestrict> ListAgeRestricts;
+        private List<AgeRestrict> _listAgeRestricts;
 
         public AddNewFilmWindow(List<AgeRestrict> listAgeRestricts)
         {
             InitializeComponent();
 
-            ListAgeRestricts = listAgeRestricts;
+            _listAgeRestricts = listAgeRestricts;
 
-            AgeRestrictBox.ItemsSource = listAgeRestricts;
+            AgeRestrictBox.ItemsSource = _listAgeRestricts;
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            string resStr = "";
-
             if (NameBox.Text.Length == 0 || NameBox.Text.Replace(" ", "").Length == 0)
                 NameBox.BorderBrush = Brushes.Red;
 
@@ -47,13 +45,13 @@ namespace Cinema.WPF.Views
 
             else
             {
-                AgeRestrict selectedAgeRestrict = ListAgeRestricts.Find(p => p == AgeRestrictBox.SelectedItem);
+                AgeRestrict selectedAgeRestrict = _listAgeRestricts.Find(p => p == AgeRestrictBox.SelectedItem);
 
-                resStr = DataWorker.AddFilm(NameBox.Text, TimeSpan.Parse(DurationBox.Text), selectedAgeRestrict.id, Convert.ToDecimal(MarkupBox.Text));
+                string resStr = DataWorker.AddFilm(NameBox.Text, TimeSpan.Parse(DurationBox.Text), selectedAgeRestrict.id, Convert.ToDecimal(MarkupBox.Text));
 
                 MessageBox.Show(resStr, "Уведомление", MessageBoxButton.OK, MessageBoxImage.None);
 
-                this.Close();
+                Close();
             }
         }
 
