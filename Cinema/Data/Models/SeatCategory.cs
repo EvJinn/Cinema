@@ -2,6 +2,9 @@
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Категория места
+    /// </summary>
     public class SeatCategory
     {
         public int id { get; set; }

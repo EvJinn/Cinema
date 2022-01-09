@@ -2,6 +2,9 @@
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Билет
+    /// </summary>
     public class Ticket
     {
         public int id { get; set; }

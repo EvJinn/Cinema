@@ -2,6 +2,9 @@
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Место
+    /// </summary>
     public class Seat
     {
         public int id { get; set; }

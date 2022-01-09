@@ -2,6 +2,9 @@
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Клиент
+    /// </summary>
     public class Client
     {
         public int id { get; set; }

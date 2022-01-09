@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Сеанс
+    /// </summary>
     public class Session
     {
         public int id { get; set; }

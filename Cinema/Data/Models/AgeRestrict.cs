@@ -2,6 +2,9 @@
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Возрастное ограничение
+    /// </summary>
     public class AgeRestrict
     {
         public int id { get; set; }

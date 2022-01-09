@@ -2,6 +2,9 @@
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Зал
+    /// </summary>
     public class Hall
     {
         public int id { get; set; }

@@ -2,6 +2,9 @@
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Жанр
+    /// </summary>
     public class Genre
     {
         public int id { get; set; }

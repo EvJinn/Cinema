@@ -2,6 +2,9 @@
 
 namespace Cinema.Models
 {
+    /// <summary>
+    /// Связь фильмов с жанрами
+    /// </summary>
     public class FilmGenre
     {
         public int id_Film { get; set; }
