@@ -159,7 +159,16 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Отчётность">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <TabControl>
+                        <TabItem Header="Проведённые сеансы">
+                            <Grid Background="#FFE5E5E5"/>
+                        </TabItem>
+                        <TabItem Header="Продажи билетов">
+                            <Grid Background="#FFE5E5E5"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

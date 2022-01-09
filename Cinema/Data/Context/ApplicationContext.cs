@@ -21,6 +21,7 @@ namespace Cinema.Context
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
 
+        /// <param name="configuration">Конфигурационный файл</param>
         public ApplicationContext(IConfiguration configuration)
         {
             _configuration = configuration;
