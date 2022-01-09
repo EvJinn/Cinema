@@ -152,7 +152,7 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <Button Content="Добавить новую категорию" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197" />
+                                <Button x:Name="AddCategoryButton" Content="Добавить новую категорию" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="36" Width="197" Click="AddCategoryButton_Click" />
                             </Grid>
                         </TabItem>
                     </TabControl>

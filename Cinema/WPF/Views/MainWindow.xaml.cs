@@ -192,6 +192,15 @@ namespace Cinema
             SeatsList.Items.Clear();
         }
 
+        private void AddCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addNewCategoryWindow = new AddNewCategoryWindow();
+            addNewCategoryWindow.ShowDialog();
+
+            _listSeatCategories = DataWorker.GetCategoryList();
+            CategoryList.ItemsSource = _listSeatCategories;
+        }
+
         #endregion
 
     }

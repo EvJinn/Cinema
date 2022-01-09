@@ -224,6 +224,28 @@ namespace Cinema.WPF.Models
             return "Успешно";
         }
 
+        /// <summary>
+        /// Добавить новую категрию в базу данных
+        /// </summary>
+        /// <param name="name">Название категории</param>
+        /// <param name="cost">Стоимость места данной категории</param>
+        /// <returns>
+        /// Строка результата
+        /// </returns>
+        public static string AddCategory(string name, decimal cost)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            SeatCategory newCategory = new SeatCategory
+            {
+                Category = name,
+                Cost = cost
+            };
+            db.SeatCategories.Add(newCategory);
+            db.SaveChanges();
+
+            return "Успешно";
+        }
         #endregion
     }
 }
