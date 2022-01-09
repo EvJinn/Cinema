@@ -14,52 +14,52 @@ namespace Cinema
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Session> ListSessions;
-        private List<Film> ListFilms;
-        private List<Hall> ListHalls;
-        private List<Client> ListClients;
-        private List<Seat> ListSeats;
-        private List<SeatCategory> ListSeatCategories;
-        private List<AgeRestrict> ListAgeRestricts;
+        private List<Session> _listSessions;
+        private List<Film> _listFilms;
+        private List<Hall> _listHalls;
+        private List<Client> _listClients;
+        private List<Seat> _listSeats;
+        private List<SeatCategory> _listSeatCategories;
+        private List<AgeRestrict> _listAgeRestricts;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            ListFilms = DataWorker.GetFilms();
-            ListHalls = DataWorker.GetHalls();
-            ListSessions = DataWorker.GetSessions();
-            ListClients = DataWorker.GetClients();
-            ListSeats = DataWorker.GetSeatsList();
-            ListSeatCategories = DataWorker.GetCategoryList();
-            ListAgeRestricts = DataWorker.GetAgeRestricts();
+            _listFilms = DataWorker.GetFilms();
+            _listHalls = DataWorker.GetHalls();
+            _listSessions = DataWorker.GetSessions();
+            _listClients = DataWorker.GetClients();
+            _listSeats = DataWorker.GetSeatsList();
+            _listSeatCategories = DataWorker.GetCategoryList();
+            _listAgeRestricts = DataWorker.GetAgeRestricts();
         }
 
         #region SESSION TAB
 
-        private List<Session> FilteredSessionsList;
+        private List<Session> _filteredSessionsList;
 
         private void Sessions_Loaded(object sender, RoutedEventArgs e)
         {
-            SessionsList.ItemsSource = ListSessions;
+            SessionsList.ItemsSource = _listSessions;
 
-            FilterFilmBox.ItemsSource = ListFilms;
-            FilterHallBox.ItemsSource = ListHalls;
+            FilterFilmBox.ItemsSource = _listFilms;
+            FilterHallBox.ItemsSource = _listHalls;
 
-            FilteredSessionsList = ListSessions;
+            _filteredSessionsList = _listSessions;
         }
 
         private void FilterDateCheck_Checked(object sender, RoutedEventArgs e)
         {
-            FilteredSessionsList = FilteredSessionsList.Where(p => p.Date == FilterDateBox.SelectedDate).ToList();
+            _filteredSessionsList = _filteredSessionsList.Where(p => p.Date == FilterDateBox.SelectedDate).ToList();
 
-            SessionsList.ItemsSource = FilteredSessionsList;
+            SessionsList.ItemsSource = _filteredSessionsList;
         }
 
         private void FilterDateCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            SessionsList.ItemsSource = ListSessions;
-            FilteredSessionsList = ListSessions;
+            SessionsList.ItemsSource = _listSessions;
+            _filteredSessionsList = _listSessions;
 
             FilterDateCheck.IsChecked = false;
             FilterFilmCheck.IsChecked = false;
@@ -68,20 +68,20 @@ namespace Cinema
 
         private void FilterHallCheck_Checked(object sender, RoutedEventArgs e)
         {
-            Hall selectedHall = ListHalls.Find(p => p == FilterHallBox.SelectedItem);
+            Hall selectedHall = _listHalls.Find(p => p == FilterHallBox.SelectedItem);
 
             if (selectedHall != null)
             {
-                FilteredSessionsList = FilteredSessionsList.Where(p => p.id_hall == selectedHall.id).ToList();
+                _filteredSessionsList = _filteredSessionsList.Where(p => p.id_hall == selectedHall.id).ToList();
 
-                SessionsList.ItemsSource = FilteredSessionsList;
+                SessionsList.ItemsSource = _filteredSessionsList;
             }
         }
 
         private void FilterHallCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            SessionsList.ItemsSource = ListSessions;
-            FilteredSessionsList = ListSessions;
+            SessionsList.ItemsSource = _listSessions;
+            _filteredSessionsList = _listSessions;
 
             FilterDateCheck.IsChecked = false;
             FilterFilmCheck.IsChecked = false;
@@ -90,20 +90,20 @@ namespace Cinema
 
         private void FilterFilmCheck_Checked(object sender, RoutedEventArgs e)
         {
-            Film selectedFilm = ListFilms.Find(p => p == FilterFilmBox.SelectedItem);
+            Film selectedFilm = _listFilms.Find(p => p == FilterFilmBox.SelectedItem);
 
             if (selectedFilm != null)
             {
-                FilteredSessionsList = FilteredSessionsList.Where(p => p.id_film == selectedFilm.id).ToList();
+                _filteredSessionsList = _filteredSessionsList.Where(p => p.id_film == selectedFilm.id).ToList();
 
-                SessionsList.ItemsSource = FilteredSessionsList;
+                SessionsList.ItemsSource = _filteredSessionsList;
             }
         }
 
         private void FilterFilmCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            SessionsList.ItemsSource = ListSessions;
-            FilteredSessionsList = ListSessions;
+            SessionsList.ItemsSource = _listSessions;
+            _filteredSessionsList = _listSessions;
 
             FilterDateCheck.IsChecked = false;
             FilterFilmCheck.IsChecked = false;
@@ -112,11 +112,11 @@ namespace Cinema
 
         private void CreateSessionButton_Click(object sender, RoutedEventArgs e)
         {
-            var addNewSessionWindow = new AddNewSessionWindow(ListFilms, ListHalls);
+            var addNewSessionWindow = new AddNewSessionWindow(_listFilms, _listHalls);
             addNewSessionWindow.ShowDialog();
 
-            ListSessions = DataWorker.GetSessions();
-            SessionsList.ItemsSource = ListSessions;
+            _listSessions = DataWorker.GetSessions();
+            SessionsList.ItemsSource = _listSessions;
         }
 
         #endregion
@@ -125,7 +125,7 @@ namespace Cinema
 
         private void Clients_Loaded(object sender, RoutedEventArgs e)
         {
-            ClientsList.ItemsSource = ListClients;
+            ClientsList.ItemsSource = _listClients;
         }
 
         private void CreateClientButton_Click(object sender, RoutedEventArgs e)
@@ -133,8 +133,8 @@ namespace Cinema
             var addNewClientWindow = new AddNewClient();
             addNewClientWindow.ShowDialog();
 
-            ListClients = DataWorker.GetClients();
-            ClientsList.ItemsSource = ListClients;
+            _listClients = DataWorker.GetClients();
+            ClientsList.ItemsSource = _listClients;
         }
 
         #endregion
@@ -143,16 +143,16 @@ namespace Cinema
 
         private void Films_Loaded(object sender, RoutedEventArgs e)
         {
-            FilmsList.ItemsSource = ListFilms;
+            FilmsList.ItemsSource = _listFilms;
         }
 
         private void CreateFilmButton_Click(object sender, RoutedEventArgs e)
         {
-            var addNewFilmWindow = new AddNewFilmWindow(ListAgeRestricts);
+            var addNewFilmWindow = new AddNewFilmWindow(_listAgeRestricts);
             addNewFilmWindow.ShowDialog();
 
-            ListFilms = DataWorker.GetFilms();
-            FilmsList.ItemsSource = ListFilms;
+            _listFilms = DataWorker.GetFilms();
+            FilmsList.ItemsSource = _listFilms;
         }
 
         #endregion
@@ -161,23 +161,24 @@ namespace Cinema
 
         private void Halls_Loaded(object sender, RoutedEventArgs e)
         {
-            HallsList.ItemsSource = ListHalls;
+            HallsList.ItemsSource = _listHalls;
         }
 
-        private List<Seat> FilteredSeatsList;
+        private List<Seat> _filteredSeatsList;
 
         private void HallsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Hall selectedHall = ListHalls.Find(p => p == HallsList.SelectedItem);
+            Hall selectedHall = _listHalls.Find(p => p == HallsList.SelectedItem);
 
-            FilteredSeatsList = ListSeats.Where(p => p.id_hall == selectedHall.id).ToList();
+            _filteredSeatsList = _listSeats.Where(p => p.id_hall == selectedHall.id).ToList();
+            _filteredSeatsList = _filteredSeatsList.OrderBy(p => p.Row).ThenBy(p => p.Number).ToList();
 
-            SeatsList.ItemsSource = FilteredSeatsList;
+            SeatsList.ItemsSource = _filteredSeatsList;
         }
 
         private void SeatCategories_Loaded(object sender, RoutedEventArgs e)
         {
-            CategoryList.ItemsSource = ListSeatCategories;
+            CategoryList.ItemsSource = _listSeatCategories;
         }
 
         private void AddHallButton_Click(object sender, RoutedEventArgs e)
@@ -185,14 +186,13 @@ namespace Cinema
             var addNewHallWindow = new AddNewHallWindow();
             addNewHallWindow.ShowDialog();
 
-            ListHalls = DataWorker.GetHalls();
-            HallsList.ItemsSource = ListHalls;
+            _listHalls = DataWorker.GetHalls();
+            HallsList.ItemsSource = _listHalls;
 
             SeatsList.Items.Clear();
         }
 
         #endregion
-
 
     }
 }

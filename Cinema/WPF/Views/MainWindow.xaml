@@ -97,7 +97,7 @@
                         <TabItem Header="Залы" x:Name="Halls" Loaded="Halls_Loaded" >
                             <TabItem.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Удалить"/>
+                                    <MenuItem Header="Редактировать"/>
                                 </ContextMenu>
                             </TabItem.ContextMenu>
                             <Grid Background="#FFE5E5E5">
@@ -136,7 +136,7 @@
                         <TabItem x:Name="SeatCategories" Header="Категория мест" Loaded="SeatCategories_Loaded">
                             <TabItem.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Удалить"/>
+                                    <MenuItem Header="Редактировать"/>
                                 </ContextMenu>
                             </TabItem.ContextMenu>
                             <Grid Background="#FFE5E5E5">
