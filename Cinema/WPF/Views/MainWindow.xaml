@@ -129,7 +129,7 @@
                                 </ListView>
                                 <Label Content="Залы" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 <Label Content="Места" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <Button x:Name="AddHallButton" Content="Добавить зал" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="130"/>
+                                <Button x:Name="AddHallButton" Content="Добавить зал" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="130" Click="AddHallButton_Click"/>
                                 <Button x:Name="AddSeatButton" Content="Добавить место" Grid.Column="1" HorizontalAlignment="Center" Margin="0,52,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="130"/>
                             </Grid>
                         </TabItem>

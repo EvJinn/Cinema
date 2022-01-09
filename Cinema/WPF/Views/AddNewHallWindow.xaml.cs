@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Cinema.WPF.Models;
 
 namespace Cinema.WPF.Views
 {
@@ -22,6 +23,23 @@ namespace Cinema.WPF.Views
         public AddNewHallWindow()
         {
             InitializeComponent();
+        }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            string resStr = "";
+
+            if (NameBox.Text.Length == 0 || NameBox.Text.Replace(" ", "").Length == 0)
+                NameBox.BorderBrush = Brushes.Red;
+
+            else
+            {
+                resStr = DataWorker.AddHall(NameBox.Text);
+
+                MessageBox.Show(resStr, "Уведомление", MessageBoxButton.OK, MessageBoxImage.None);
+
+                this.Close();
+            }
         }
     }
 }

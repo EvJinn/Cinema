@@ -202,6 +202,28 @@ namespace Cinema.WPF.Models
 
             return db.SeatCategories.ToList();
         }
+
+        /// <summary>
+        /// Добавить новый зал в базу данных
+        /// </summary>
+        /// <param name="name">Название зала</param>
+        /// <returns>
+        /// Строка результата
+        /// </returns>
+        public static string AddHall(string name)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            Hall newHall = new Hall
+            {
+                Name = name
+            };
+            db.Halls.Add(newHall);
+            db.SaveChanges();
+
+            return "Успешно";
+        }
+
         #endregion
     }
 }

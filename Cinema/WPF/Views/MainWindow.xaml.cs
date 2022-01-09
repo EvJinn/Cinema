@@ -180,9 +180,19 @@ namespace Cinema
             CategoryList.ItemsSource = ListSeatCategories;
         }
 
+        private void AddHallButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addNewHallWindow = new AddNewHallWindow();
+            addNewHallWindow.ShowDialog();
+
+            ListHalls = DataWorker.GetHalls();
+            HallsList.ItemsSource = ListHalls;
+
+            SeatsList.Items.Clear();
+        }
 
         #endregion
 
-        
+
     }
 }
