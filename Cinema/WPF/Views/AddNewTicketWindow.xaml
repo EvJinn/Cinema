@@ -42,7 +42,7 @@
         <Label Content="Стоимость" HorizontalAlignment="Left" Margin="11,123,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="CostBox" HorizontalAlignment="Center" Margin="0,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" IsReadOnly="True" IsEnabled="False"/>
 
-        <Button x:Name="CreateButton" Content="Провести" HorizontalAlignment="Left" Margin="150,214,0,0" VerticalAlignment="Top" Height="33" Width="124" Click="CreateButton_Click"/>
+        <Button x:Name="CreateButton" Content="Провести" HorizontalAlignment="Left" Margin="150,214,0,0" VerticalAlignment="Top" Height="33" Width="124" Click="CreateButton_Click" IsEnabled="False"/>
         <Button x:Name="CalculateCostButton" Content="Рассчитать стоимость" HorizontalAlignment="Center" Margin="0,172,0,0" VerticalAlignment="Top" Width="279" Click="CalculateCostButton_Click"/>
 
 

@@ -112,6 +112,24 @@ namespace Cinema.WPF.Models
                 .Include(e => e.Session).ToList();
         }
 
+        public static string AddTicket(int? id_client, int id_session, decimal cost, int id_seat)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            Ticket newTicket = new Ticket
+            {
+                id_session = id_session,
+                id_client = id_client,
+                id_seat = id_seat,
+                Cost = cost
+            };
+
+            db.Tickets.Add(newTicket);
+            db.SaveChanges();
+
+            return "Успешно";
+        }
+
         #endregion
 
         #region FILMS
