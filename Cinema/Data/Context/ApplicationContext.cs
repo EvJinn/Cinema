@@ -135,11 +135,12 @@ namespace Cinema.Context
 
                 entity.Property(e => e.Cost).HasColumnName("cost");
 
-                entity.HasOne(d => d.Session).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Session)
+                entity.HasOne(d => d.Session).WithMany(p => p.Tickets).HasForeignKey(d => d.id_session)
                     .HasPrincipalKey(p => p.id);
-                entity.HasOne(d => d.Seat).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Seat)
+                entity.HasOne(d => d.Seat).WithMany(p => p.Tickets).HasForeignKey(d => d.id_seat)
                     .HasPrincipalKey(p => p.id);
-                entity.HasOne(d => d.Client).WithMany(p => p.Tickets).HasForeignKey(d => d.id_Client).HasPrincipalKey(p=>p.id);
+                entity.HasOne(d => d.Client).WithMany(p => p.Tickets).HasForeignKey(d => d.id_client)
+                    .HasPrincipalKey(p=>p.id);
             }));
 
             base.OnModelCreating(modelBuilder);

@@ -105,6 +105,18 @@ namespace Cinema.WPF.Models
 
         #endregion
 
+        #region TICKETS
+
+        public static List<Ticket> GetTicketsList(int id_session)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            return db.Tickets.Where(p => p.id_session == id_session).Include(e => e.Client).Include(e => e.Seat)
+                .Include(e => e.Session).ToList();
+        }
+
+        #endregion
+
         #region FILMS
 
         /// <summary>

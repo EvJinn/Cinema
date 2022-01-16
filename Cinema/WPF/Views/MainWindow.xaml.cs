@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Collections;
 using Cinema.WPF.Models;
 using System.Linq;
 using Cinema.Models;
@@ -117,6 +116,14 @@ namespace Cinema
 
             _listSessions = DataWorker.GetSessions();
             SessionsList.ItemsSource = _listSessions;
+        }
+
+        private void SessionsList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Session selectedSession = _listSessions.Find(x => x == SessionsList.SelectedItem);
+
+            var newTicketWindow = new NewTicketWindow(selectedSession);
+            newTicketWindow.ShowDialog();
         }
 
         #endregion

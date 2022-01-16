@@ -24,7 +24,7 @@
                         <ColumnDefinition Width="217*"/>
                         <ColumnDefinition Width="577*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Grid.Column="1" x:Name="SessionsList" Grid.RowSpan="2">
+                    <ListView Grid.Column="1" x:Name="SessionsList" Grid.RowSpan="2" MouseDoubleClick="SessionsList_MouseDoubleClick">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn x:Name="SessionDate" Header="Дата" DisplayMemberBinding="{Binding Path=Date, StringFormat='MM.dd.yy'}" Width="75"/>

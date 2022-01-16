@@ -9,15 +9,15 @@ namespace Cinema.Models
     {
         public int id { get; set; }
 
-        public int id_Session { get; set; }
+        public int id_session { get; set; }
         public Session Session { get; set; }
 
         public decimal Cost { get; set; }
 
-        public int id_Seat { get; set; }
+        public int id_seat { get; set; }
         public Seat Seat { get; set; }
 
-        public int id_Client { get; set; }
-        public Client Client { get; set; }
+        public int? id_client { get; set; } = null;
+        public virtual Client Client { get; set; } = null;
     }
 }
