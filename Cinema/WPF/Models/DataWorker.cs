@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using Cinema.Context;
 using Cinema.Models;
 using Microsoft.EntityFrameworkCore;
@@ -200,6 +197,20 @@ namespace Cinema.WPF.Models
             using ApplicationContext db = new ApplicationContext(AppConfig);
 
             return db.Seats.Include(e => e.Hall).Include(e => e.SeatCategory).ToList();
+        }
+
+        /// <summary>
+        /// Получить список мест в зале из базы данных
+        /// </summary>
+        /// <returns>
+        /// Список мест в зале
+        /// </returns>
+        /// <param name="id_hall">Зал</param>
+        public static List<Seat> GetSeatsList(int id_hall)
+        {
+            using ApplicationContext db = new ApplicationContext(AppConfig);
+
+            return db.Seats.Where(p => p.id_hall == id_hall).Include(e => e.SeatCategory).ToList();
         }
 
         /// <summary>

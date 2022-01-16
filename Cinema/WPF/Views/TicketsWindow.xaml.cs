@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Cinema.Models;
 using Cinema.WPF.Models;
 
 namespace Cinema.WPF.Views
 {
     /// <summary>
-    /// Логика взаимодействия для NewTicketWindow.xaml
+    /// Логика взаимодействия для TicketsWindow.xaml
     /// </summary>
-    public partial class NewTicketWindow : Window
+    public partial class TicketsWindow : Window
     {
         private Session _selectedSession;
         private List<Ticket> _listTickets;
 
-        public NewTicketWindow(Session selectedSession)
+        public TicketsWindow(Session selectedSession)
         {
             InitializeComponent();
 
@@ -40,7 +29,11 @@ namespace Cinema.WPF.Views
 
         private void CreateTicketButton_Click(object sender, RoutedEventArgs e)
         {
+            var addNewTicketWindow = new AddNewTicketWindow(_selectedSession);
+            addNewTicketWindow.ShowDialog();
 
+            _listTickets = DataWorker.GetTicketsList(_selectedSession.id);
+            TicketsList.ItemsSource = _listTickets;
         }
     }
 }

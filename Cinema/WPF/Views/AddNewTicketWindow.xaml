@@ -1,0 +1,52 @@
+﻿<Window x:Class="Cinema.WPF.Views.AddNewTicketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cinema.WPF.Views"
+        mc:Ignorable="d"
+        Title="AddNewTicketWindow"  Height="290" Width="300" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Место" HorizontalAlignment="Left" Margin="10,19,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="SeatBox" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Width="280">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{} Ряд: {0} Место: {1}">
+                                <Binding Path="Row"/>
+                                <Binding Path="Number"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <CheckBox x:Name="CheckClient" Content="Клиент" HorizontalAlignment="Left" Margin="11,80,0,0" VerticalAlignment="Top" Checked="CheckClient_Checked" Unchecked="CheckClient_Unchecked"/>
+        <ComboBox x:Name="ClientBox" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" Width="280" IsEnabled="False">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="FirstName"/>
+                                <Binding Path="LastName"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Content="Стоимость" HorizontalAlignment="Left" Margin="11,123,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="CostBox" HorizontalAlignment="Center" Margin="0,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" IsReadOnly="True" IsEnabled="False"/>
+
+        <Button x:Name="CreateButton" Content="Провести" HorizontalAlignment="Left" Margin="150,214,0,0" VerticalAlignment="Top" Height="33" Width="124" Click="CreateButton_Click"/>
+        <Button x:Name="CalculateCostButton" Content="Рассчитать стоимость" HorizontalAlignment="Center" Margin="0,172,0,0" VerticalAlignment="Top" Width="279" Click="CalculateCostButton_Click"/>
+
+
+
+
+    </Grid>
+</Window>

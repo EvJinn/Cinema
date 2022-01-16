@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Cinema.Models
+﻿namespace Cinema.Models
 {
     /// <summary>
     /// Связь фильмов с жанрами

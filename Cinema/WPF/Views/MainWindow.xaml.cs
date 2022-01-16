@@ -122,8 +122,8 @@ namespace Cinema
         {
             Session selectedSession = _listSessions.Find(x => x == SessionsList.SelectedItem);
 
-            var newTicketWindow = new NewTicketWindow(selectedSession);
-            newTicketWindow.ShowDialog();
+            var ticketsWindow = new TicketsWindow(selectedSession);
+            ticketsWindow.ShowDialog();
         }
 
         #endregion
@@ -172,10 +172,12 @@ namespace Cinema
         }
 
         private List<Seat> _filteredSeatsList;
+        private bool isHallSelected = false;
 
         private void HallsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             Hall selectedHall = _listHalls.Find(p => p == HallsList.SelectedItem);
+            isHallSelected = true;
 
             _filteredSeatsList = _listSeats.Where(p => p.id_hall == selectedHall.id).ToList();
             _filteredSeatsList = _filteredSeatsList.OrderBy(p => p.Row).ThenBy(p => p.Number).ToList();
@@ -206,6 +208,15 @@ namespace Cinema
 
             _listSeatCategories = DataWorker.GetCategoryList();
             CategoryList.ItemsSource = _listSeatCategories;
+        }
+
+        private void ViewSeatsInHallWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (isHallSelected)
+            {
+                var seatsInHallWindow = new SeatsInHallWindow(_filteredSeatsList);
+                seatsInHallWindow.Show();
+            }
         }
 
         #endregion
