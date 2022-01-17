@@ -5,6 +5,7 @@ using System.Linq;
 using Cinema.Context;
 using Cinema.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Cinema.WPF.Models
 {
@@ -22,7 +23,7 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static List<Client> GetClients()
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
             return db.Client.ToList();
         }
@@ -39,20 +40,27 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static string AddClient(string firstname, string lastname, string patronymic, decimal discount)
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
-            Client newClient = new Client
+            try
             {
-                FirstName = firstname,
-                LastName = lastname,
-                Patronymic = patronymic,
-                Discount = discount
-            };
-            db.Client.Add(newClient);
-            db.SaveChanges();
+                Client newClient = new Client
+                {
+                    FirstName = firstname,
+                    LastName = lastname,
+                    Patronymic = patronymic,
+                    Discount = discount
+                };
+                db.Client.Add(newClient);
+                db.SaveChanges();
 
-            return "Успешно!";
-        }
+                return "Успешно!";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+}
 
         #endregion
 
@@ -66,7 +74,7 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static List<Session> GetSessions()
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
             return db.Sessions.Include(e => e.Film).Include(e => e.Hall).ToList();
         }
@@ -84,20 +92,27 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static string AddSession(DateTime date, DateTimeOffset start, int id_hall, int id_film, decimal markup)
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
-            Session newSession = new Session
+            try
             {
-                Date = date,
-                Start = start,
-                id_hall = id_hall,
-                id_film = id_film,
-                Markup = markup
-            };
-            db.Sessions.Add(newSession);
-            db.SaveChanges();
+                Session newSession = new Session
+                {
+                    Date = date,
+                    Start = start,
+                    id_hall = id_hall,
+                    id_film = id_film,
+                    Markup = markup
+                };
+                db.Sessions.Add(newSession);
+                db.SaveChanges();
 
-            return "Успешно!";
+                return "Успешно!";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         #endregion
@@ -106,28 +121,41 @@ namespace Cinema.WPF.Models
 
         public static List<Ticket> GetTicketsList(int id_session)
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
             return db.Tickets.Where(p => p.id_session == id_session).Include(e => e.Client).Include(e => e.Seat)
                 .Include(e => e.Session).ToList();
         }
 
-        public static string AddTicket(int? id_client, int id_session, decimal cost, int id_seat)
+        public static string AddTicket(List<Ticket> tickets)
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
+            using IDbContextTransaction transaction = db.Database.BeginTransaction();
 
-            Ticket newTicket = new Ticket
+            try
             {
-                id_session = id_session,
-                id_client = id_client,
-                id_seat = id_seat,
-                Cost = cost
-            };
+                foreach (var ticket in tickets)
+                {
+                    Ticket newTicket = new()
+                    {
+                        id_client = ticket.id_client,
+                        id_seat = ticket.id_seat,
+                        id_session = ticket.id_session,
+                        Cost = ticket.Cost,
+                    };
 
-            db.Tickets.Add(newTicket);
-            db.SaveChanges();
+                    db.Tickets.Add(newTicket);
+                }
+                db.SaveChanges();
+                transaction.Commit();
 
-            return "Успешно";
+                return "Успешно";
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+                return e.Message;
+            }
         }
 
         #endregion
@@ -142,7 +170,7 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static List<Film> GetFilms()
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
             
             return db.Films.Include(e => e.AgeRestrict).ToList();
         }
@@ -155,7 +183,7 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static List<AgeRestrict> GetAgeRestricts()
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
             return db.AgeRestricts.ToList();
         }
@@ -172,19 +200,26 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static string AddFilm(string name, TimeSpan duration, int id_agerestrict, decimal markup)
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
-            Film newFilm = new Film
+            try
             {
-                Name = name,
-                Duration = duration,
-                id_agerestrict = id_agerestrict,
-                Markup = markup
-            };
-            db.Films.Add(newFilm);
-            db.SaveChanges();
+                Film newFilm = new Film
+                {
+                    Name = name,
+                    Duration = duration,
+                    id_agerestrict = id_agerestrict,
+                    Markup = markup
+                };
+                db.Films.Add(newFilm);
+                db.SaveChanges();
 
-            return "Успешно";
+                return "Успешно";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         #endregion
@@ -199,7 +234,7 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static List<Hall> GetHalls()
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
             return db.Halls.ToList();
         }
@@ -212,7 +247,7 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static List<Seat> GetSeatsList()
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
             return db.Seats.Include(e => e.Hall).Include(e => e.SeatCategory).ToList();
         }
@@ -226,7 +261,7 @@ namespace Cinema.WPF.Models
         /// <param name="id_hall">Зал</param>
         public static List<Seat> GetSeatsList(int id_hall)
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
             return db.Seats.Where(p => p.id_hall == id_hall).Include(e => e.SeatCategory).ToList();
         }
@@ -239,7 +274,7 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static List<SeatCategory> GetCategoryList()
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
             return db.SeatCategories.ToList();
         }
@@ -253,16 +288,23 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static string AddHall(string name)
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
-            Hall newHall = new Hall
+            try
             {
-                Name = name
-            };
-            db.Halls.Add(newHall);
-            db.SaveChanges();
+                Hall newHall = new Hall
+                {
+                    Name = name
+                };
+                db.Halls.Add(newHall);
+                db.SaveChanges();
 
-            return "Успешно";
+                return "Успешно";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         /// <summary>
@@ -275,17 +317,24 @@ namespace Cinema.WPF.Models
         /// </returns>
         public static string AddCategory(string name, decimal cost)
         {
-            using ApplicationContext db = new ApplicationContext(AppConfig);
+            using ApplicationContext db = new(AppConfig);
 
-            SeatCategory newCategory = new SeatCategory
+            try
             {
-                Category = name,
-                Cost = cost
-            };
-            db.SeatCategories.Add(newCategory);
-            db.SaveChanges();
+                SeatCategory newCategory = new SeatCategory
+                {
+                    Category = name,
+                    Cost = cost
+                };
+                db.SeatCategories.Add(newCategory);
+                db.SaveChanges();
 
-            return "Успешно";
+                return "Успешно";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         #endregion
     }

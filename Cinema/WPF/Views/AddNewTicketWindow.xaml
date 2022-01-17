@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema.WPF.Views"
         mc:Ignorable="d"
-        Title="AddNewTicketWindow"  Height="290" Width="300" ResizeMode="NoResize">
+        Title="Билет"  Height="290" Width="650" ResizeMode="NoResize">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="301*"/>
+            <ColumnDefinition Width="349*"/>
+        </Grid.ColumnDefinitions>
         <Label Content="Место" HorizontalAlignment="Left" Margin="10,19,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="SeatBox" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Width="280">
             <ComboBox.ItemTemplate>
@@ -23,7 +27,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <CheckBox x:Name="CheckClient" Content="Клиент" HorizontalAlignment="Left" Margin="11,80,0,0" VerticalAlignment="Top" Checked="CheckClient_Checked" Unchecked="CheckClient_Unchecked"/>
+        <CheckBox x:Name="CheckClient" Content="Клиент" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Checked="CheckClient_Checked" Unchecked="CheckClient_Unchecked"/>
         <ComboBox x:Name="ClientBox" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" Width="280" IsEnabled="False">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -42,8 +46,18 @@
         <Label Content="Стоимость" HorizontalAlignment="Left" Margin="11,123,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="CostBox" HorizontalAlignment="Center" Margin="0,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" IsReadOnly="True" IsEnabled="False"/>
 
-        <Button x:Name="CreateButton" Content="Провести" HorizontalAlignment="Left" Margin="150,214,0,0" VerticalAlignment="Top" Height="33" Width="124" Click="CreateButton_Click" IsEnabled="False"/>
-        <Button x:Name="CalculateCostButton" Content="Рассчитать стоимость" HorizontalAlignment="Center" Margin="0,172,0,0" VerticalAlignment="Top" Width="279" Click="CalculateCostButton_Click"/>
+        <Button x:Name="AddButton" Content="Добавить" HorizontalAlignment="Left" Margin="11,213,0,0" VerticalAlignment="Top" Height="33" Width="124" Click="AddButton_Click" IsEnabled="False"/>
+        <Button x:Name="CalculateCostButton" Content="Рассчитать стоимость" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="279" Click="CalculateCostButton_Click"/>
+        <ListView x:Name="TicketsList" Margin="1,0,0,0" Grid.Column="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn x:Name="TicketsSeatRow" Header="Ряд" DisplayMemberBinding="{Binding Path = Seat.Row}" Width="100"/>
+                    <GridViewColumn x:Name="TicketsSeatNumber" Header="Место" DisplayMemberBinding="{Binding Path = Seat.Number}" Width="100"/>
+                    <GridViewColumn x:Name="TicketsCost" Header="Стоимость" DisplayMemberBinding="{Binding Path = Cost}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="CreateButton" Content="Провести" HorizontalAlignment="Left" Margin="165,213,0,0" VerticalAlignment="Top" Height="33" Width="124" IsEnabled="False" Click="CreateButton_Click"/>
 
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
 using Cinema.Models;
 using Cinema.WPF.Models;
 
@@ -57,24 +58,71 @@ namespace Cinema.WPF.Views
                     cost = selectedSeat.SeatCategory.Cost + _selectedSession.Markup + _selectedSession.Film.Markup;
 
                 CostBox.Text = cost.ToString();
-                CreateButton.IsEnabled = true;
+                AddButton.IsEnabled = true;
             }
+            else
+                SeatBox.BorderBrush = Brushes.Red;
         }
 
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             Seat selectedSeat = _listSeats.Find(p => p == SeatBox.SelectedItem);
             Client selectedClient = _listClients.Find(p => p == ClientBox.SelectedItem);
 
             string resStr;
             if (selectedClient != null)
-                resStr = DataWorker.AddTicket(selectedClient.id, _selectedSession.id, Convert.ToDecimal(CostBox.Text), selectedSeat.id);
+            {
+                Ticket ticket = new Ticket
+                {
+                    id_client = selectedClient.id,
+                    id_session = _selectedSession.id,
+                    Cost = Convert.ToDecimal(CostBox.Text),
+                    id_seat = selectedSeat.id,
+                    Seat = selectedSeat
+                };
+
+                _newTickets.Add(ticket);
+            }
+            //resStr = DataWorker.AddTicket(selectedClient.id, _selectedSession.id, Convert.ToDecimal(CostBox.Text), selectedSeat.id);
             else
-                resStr = DataWorker.AddTicket(null, _selectedSession.id, Convert.ToDecimal(CostBox.Text), selectedSeat.id);
+            {
+                Ticket ticket = new Ticket
+                {
+                    id_client = null,
+                    id_session = _selectedSession.id,
+                    Cost = Convert.ToDecimal(CostBox.Text),
+                    id_seat = selectedSeat.id,
+                    Seat = selectedSeat
+                };
+
+                _newTickets.Add(ticket);
+            }
+            //resStr = DataWorker.AddTicket(null, _selectedSession.id, Convert.ToDecimal(CostBox.Text), selectedSeat.id);
+
+            MessageBox.Show("Успешно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.None);
+
+            AddButton.IsEnabled = false;
+            CreateButton.IsEnabled = true;
+
+            TicketsList.ItemsSource = null;
+            TicketsList.ItemsSource = _newTickets;
+
+            SeatBox.SelectedItem = null;
+            ClientBox.SelectedItem = null;
+            CostBox.Text = "";
+
+            //this.Close();
+        }
+
+        private List<Ticket> _newTickets = new();
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            string resStr = DataWorker.AddTicket(_newTickets);
 
             MessageBox.Show(resStr, "Уведомление", MessageBoxButton.OK, MessageBoxImage.None);
 
-            this.Close();
+            Close();
         }
     }
 }
