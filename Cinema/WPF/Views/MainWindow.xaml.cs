@@ -176,13 +176,16 @@ namespace Cinema
 
         private void HallsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Hall selectedHall = _listHalls.Find(p => p == HallsList.SelectedItem);
-            isHallSelected = true;
+            if (HallsList.SelectedItem != null)
+            {
+                Hall selectedHall = _listHalls.Find(p => p == HallsList.SelectedItem);
+                isHallSelected = true;
 
-            _filteredSeatsList = _listSeats.Where(p => p.id_hall == selectedHall.id).ToList();
-            _filteredSeatsList = _filteredSeatsList.OrderBy(p => p.Row).ThenBy(p => p.Number).ToList();
+                _filteredSeatsList = _listSeats.Where(p => p.id_hall == selectedHall.id).ToList();
+                _filteredSeatsList = _filteredSeatsList.OrderBy(p => p.Row).ThenBy(p => p.Number).ToList();
 
-            SeatsList.ItemsSource = _filteredSeatsList;
+                SeatsList.ItemsSource = _filteredSeatsList;
+            }
         }
 
         private void SeatCategories_Loaded(object sender, RoutedEventArgs e)
@@ -198,7 +201,7 @@ namespace Cinema
             _listHalls = DataWorker.GetHalls();
             HallsList.ItemsSource = _listHalls;
 
-            SeatsList.Items.Clear();
+            SeatsList.ItemsSource = null;
         }
 
         private void AddCategoryButton_Click(object sender, RoutedEventArgs e)
@@ -219,7 +222,26 @@ namespace Cinema
             }
         }
 
-        #endregion
+        private void AddSeatButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (isHallSelected)
+            {
+                Hall selectedHall = _listHalls.Find(p => p == HallsList.SelectedItem);
 
+                var addNewSeatWindow = new AddNewSeatWindow(selectedHall);
+                addNewSeatWindow.ShowDialog();
+
+                SeatsList.ItemsSource = null;
+
+                _listSeats = DataWorker.GetSeatsList();
+
+                _filteredSeatsList = _listSeats.Where(p => p.id_hall == selectedHall.id).ToList();
+                _filteredSeatsList = _filteredSeatsList.OrderBy(p => p.Row).ThenBy(p => p.Number).ToList();
+
+                SeatsList.ItemsSource = _filteredSeatsList;
+            }
+        }
+
+        #endregion
     }
 }

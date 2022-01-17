@@ -336,6 +336,37 @@ namespace Cinema.WPF.Models
                 return e.Message;
             }
         }
+
+        public static string AddSeats(List<Seat> seats)
+        {
+            using ApplicationContext db = new(AppConfig);
+            using IDbContextTransaction transaction = db.Database.BeginTransaction();
+
+            try
+            {
+                foreach (var seat in seats)
+                {
+                    Seat newSeat = new()
+                    {
+                        id_hall = seat.id_hall,
+                        id_category = seat.id_category,
+                        Number = seat.Number,
+                        Row = seat.Row
+                    };
+
+                    db.Seats.Add(newSeat);
+                }
+                db.SaveChanges();
+                transaction.Commit();
+
+                return "Успешно";
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+                return e.Message;
+            }
+        }
         #endregion
     }
 }

@@ -17,7 +17,7 @@ namespace Cinema.WPF.Views
         private List<Client> _listClients;
         private List<Seat> _listSeats;
         private List<Ticket> _listTickets;
-        private List<Seat> _filteredListSeats;
+        private List<Seat> _filteredSeatsList;
 
         public AddNewTicketWindow(Session selectedSession, List<Ticket> listTickets)
         {
@@ -29,14 +29,15 @@ namespace Cinema.WPF.Views
             _listClients = DataWorker.GetClients();
             _listSeats = DataWorker.GetSeatsList(_selectedSession.id_hall);
 
-            _filteredListSeats = _listSeats;
+            _filteredSeatsList = _listSeats;
             foreach (var i in _listTickets)
             {
-                _filteredListSeats.RemoveAll(x => x.id == i.Seat.id);
+                _filteredSeatsList.RemoveAll(x => x.id == i.Seat.id);
             }
+            _filteredSeatsList = _filteredSeatsList.OrderBy(p => p.Row).ThenBy(p => p.Number).ToList();
 
             ClientBox.ItemsSource = _listClients;
-            SeatBox.ItemsSource = _filteredListSeats;
+            SeatBox.ItemsSource = _filteredSeatsList;
         }
 
         private void CheckClient_Checked(object sender, RoutedEventArgs e)
