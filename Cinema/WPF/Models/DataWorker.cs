@@ -368,5 +368,34 @@ namespace Cinema.WPF.Models
             }
         }
         #endregion
+
+        #region REPORTS
+
+        public static List<object> GetAmountSessionByDateReport(DateTime? start, DateTime? end)
+        {
+            using ApplicationContext db = new(AppConfig);
+
+            var res = (from session in db.Sessions
+                where (session.Date >= start) && (session.Date <= end)
+                group session by session.Date
+                into grp
+                select new
+                {
+                    Date = grp.Key,
+                    Count = grp.Select(x => x.id).Count()
+                }).OrderBy(x => x.Date).ToList<object>();
+
+            return res;
+        }
+
+        public static int GetAmountSessionReport(DateTime? start, DateTime? end)
+        {
+            using ApplicationContext db = new(AppConfig);
+
+            return db.Sessions.Where(x => (x.Date >= start) && (x.Date <= end)).Count();
+        }
+
+
+        #endregion
     }
 }

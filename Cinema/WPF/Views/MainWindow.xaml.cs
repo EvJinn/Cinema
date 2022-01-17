@@ -40,6 +40,8 @@ namespace Cinema
 
         private void Sessions_Loaded(object sender, RoutedEventArgs e)
         {
+            _listSessions = _listSessions.OrderBy(x => x.Date).ThenBy(x => x.Start).ToList();
+
             SessionsList.ItemsSource = _listSessions;
 
             FilterFilmBox.ItemsSource = _listFilms;
@@ -213,15 +215,6 @@ namespace Cinema
             CategoryList.ItemsSource = _listSeatCategories;
         }
 
-        private void ViewSeatsInHallWindow_Click(object sender, RoutedEventArgs e)
-        {
-            if (isHallSelected)
-            {
-                var seatsInHallWindow = new SeatsInHallWindow(_filteredSeatsList);
-                seatsInHallWindow.Show();
-            }
-        }
-
         private void AddSeatButton_Click(object sender, RoutedEventArgs e)
         {
             if (isHallSelected)
@@ -243,5 +236,25 @@ namespace Cinema
         }
 
         #endregion
+
+        #region REPORTS
+
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+            SessionReportView.ItemsSource = null;
+
+            var listSessionReport = DataWorker.GetAmountSessionByDateReport(StartDateBox.SelectedDate, EndDateBox.SelectedDate);
+
+            SessionReportView.ItemsSource =
+                DataWorker.GetAmountSessionByDateReport(StartDateBox.SelectedDate, EndDateBox.SelectedDate);
+
+            var countSessions = DataWorker.GetAmountSessionReport(StartDateBox.SelectedDate, EndDateBox.SelectedDate);
+
+            AmountBox.IsEnabled = true;
+            AmountBox.Text = countSessions.ToString();
+        }
+
+        #endregion
+
     }
 }
