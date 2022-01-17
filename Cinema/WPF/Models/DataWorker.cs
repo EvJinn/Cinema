@@ -428,21 +428,29 @@ namespace Cinema.WPF.Models
 
         public static string GetPopularFilmReport(DateTime? start, DateTime? end)
         {
-            using ApplicationContext db = new(AppConfig);
+            try
+            {
+                using ApplicationContext db = new(AppConfig);
 
-            var res = (from ticket in db.Tickets
-                join session in db.Sessions on ticket.id_session equals session.id
-                join film in db.Films on session.id_film equals film.id
-                where (session.Date >= start) && (session.Date <= end)
-                group ticket by film.Name
-                into grp
-                select new
-                {
-                    fName = grp.Key,
-                    Count = grp.Select(x => x.id).Count(),
-                }).OrderByDescending(x => x.Count).Take(1).Select(x => x.fName).ToList();
+                var res = (from ticket in db.Tickets
+                    join session in db.Sessions on ticket.id_session equals session.id
+                    join film in db.Films on session.id_film equals film.id
+                    where (session.Date >= start) && (session.Date <= end)
+                    group ticket by film.Name
+                    into grp
+                    select new
+                    {
+                        fName = grp.Key,
+                        Count = grp.Select(x => x.id).Count(),
+                    }).OrderByDescending(x => x.Count).Take(1).Select(x => x.fName).ToList();
 
-            return res[0].ToString();
+                return res[0];
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+            
         }
 
         #endregion
