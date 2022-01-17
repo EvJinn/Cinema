@@ -395,6 +395,55 @@ namespace Cinema.WPF.Models
             return db.Sessions.Where(x => (x.Date >= start) && (x.Date <= end)).Count();
         }
 
+        public static List<object> GetAmountTicketsByDateReport(DateTime? start, DateTime? end)
+        {
+            using ApplicationContext db = new(AppConfig);
+
+            var res = (from ticket in db.Tickets
+                    join session in db.Sessions on ticket.id_session equals session.id
+                    where (session.Date >= start) && (session.Date <= end)
+                    group ticket by session.Date into grp
+                    select new
+                    {
+                        Date = grp.Key,
+                        Count = grp.Select(x => x.id).Count(),
+                        Sum = grp.Sum(x => x.Cost),
+                    }).OrderBy(x => x.Date).ToList<object>();
+
+            return res;
+        }
+
+        public static (int, decimal) GetAmountTicketsReport(DateTime? start, DateTime? end)
+        {
+            using ApplicationContext db = new(AppConfig);
+
+            var count = db.Tickets.Include(e => e.Session)
+                .Where(x => (x.Session.Date >= start) && (x.Session.Date <= end)).Count();
+
+            var sum = db.Tickets.Include(e => e.Session)
+                .Where(x => (x.Session.Date >= start) && (x.Session.Date <= end)).Sum(x => x.Cost);
+
+            return (count, sum);
+        }
+
+        public static string GetPopularFilmReport(DateTime? start, DateTime? end)
+        {
+            using ApplicationContext db = new(AppConfig);
+
+            var res = (from ticket in db.Tickets
+                join session in db.Sessions on ticket.id_session equals session.id
+                join film in db.Films on session.id_film equals film.id
+                where (session.Date >= start) && (session.Date <= end)
+                group ticket by film.Name
+                into grp
+                select new
+                {
+                    fName = grp.Key,
+                    Count = grp.Select(x => x.id).Count(),
+                }).OrderByDescending(x => x.Count).Take(1).Select(x => x.fName).ToList();
+
+            return res[0].ToString();
+        }
 
         #endregion
     }

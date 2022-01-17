@@ -239,22 +239,39 @@ namespace Cinema
 
         #region REPORTS
 
-        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        private void GenerateSessionReportButton_Click(object sender, RoutedEventArgs e)
         {
             SessionReportView.ItemsSource = null;
 
-            var listSessionReport = DataWorker.GetAmountSessionByDateReport(StartDateBox.SelectedDate, EndDateBox.SelectedDate);
-
             SessionReportView.ItemsSource =
-                DataWorker.GetAmountSessionByDateReport(StartDateBox.SelectedDate, EndDateBox.SelectedDate);
+                DataWorker.GetAmountSessionByDateReport(StartDateSessionBox.SelectedDate, EndDateSessionBox.SelectedDate);
 
-            var countSessions = DataWorker.GetAmountSessionReport(StartDateBox.SelectedDate, EndDateBox.SelectedDate);
-
-            AmountBox.IsEnabled = true;
-            AmountBox.Text = countSessions.ToString();
+            AmountSessionsBox.IsEnabled = true;
+            AmountSessionsBox.Text = DataWorker.GetAmountSessionReport(StartDateSessionBox.SelectedDate, EndDateSessionBox.SelectedDate).ToString();
         }
 
         #endregion
 
+        private void GenerateTicketReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            TicketReportView.ItemsSource = null;
+
+            TicketReportView.ItemsSource =
+                DataWorker.GetAmountTicketsByDateReport(StartDateTicketBox.SelectedDate, EndDateTicketBox.SelectedDate);
+
+            var res = DataWorker.GetAmountTicketsReport(StartDateTicketBox.SelectedDate, EndDateTicketBox.SelectedDate);
+
+            AmountTicketsBox.IsEnabled = true;
+            AmountTicketsBox.Text = res.Item1.ToString();
+
+            SumTicketsBox.IsEnabled = true;
+            SumTicketsBox.Text = res.Item2.ToString();
+
+            var popular =
+                DataWorker.GetPopularFilmReport(StartDateTicketBox.SelectedDate, EndDateTicketBox.SelectedDate);
+
+            PopularFilmBox.IsEnabled = true;
+            PopularFilmBox.Text = popular;
+        }
     }
 }
