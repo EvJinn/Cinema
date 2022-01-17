@@ -29,7 +29,7 @@ namespace Cinema.WPF.Views
 
         private void CreateTicketButton_Click(object sender, RoutedEventArgs e)
         {
-            var addNewTicketWindow = new AddNewTicketWindow(_selectedSession);
+            var addNewTicketWindow = new AddNewTicketWindow(_selectedSession, _listTickets);
             addNewTicketWindow.ShowDialog();
 
             _listTickets = DataWorker.GetTicketsList(_selectedSession.id);

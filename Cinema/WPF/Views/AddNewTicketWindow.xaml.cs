@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using Cinema.Models;
@@ -15,18 +16,27 @@ namespace Cinema.WPF.Views
         private Session _selectedSession;
         private List<Client> _listClients;
         private List<Seat> _listSeats;
+        private List<Ticket> _listTickets;
+        private List<Seat> _filteredListSeats;
 
-        public AddNewTicketWindow(Session selectedSession)
+        public AddNewTicketWindow(Session selectedSession, List<Ticket> listTickets)
         {
             InitializeComponent();
 
             _selectedSession = selectedSession;
+            _listTickets = listTickets;
 
             _listClients = DataWorker.GetClients();
             _listSeats = DataWorker.GetSeatsList(_selectedSession.id_hall);
 
+            _filteredListSeats = _listSeats;
+            foreach (var i in _listTickets)
+            {
+                _filteredListSeats.RemoveAll(x => x.id == i.Seat.id);
+            }
+
             ClientBox.ItemsSource = _listClients;
-            SeatBox.ItemsSource = _listSeats;
+            SeatBox.ItemsSource = _filteredListSeats;
         }
 
         private void CheckClient_Checked(object sender, RoutedEventArgs e)
