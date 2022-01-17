@@ -27,7 +27,7 @@
                     <ListView Grid.Column="1" x:Name="SessionsList" Grid.RowSpan="2" MouseDoubleClick="SessionsList_MouseDoubleClick">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn x:Name="SessionDate" Header="Дата" DisplayMemberBinding="{Binding Path=Date, StringFormat='MM.dd.yy'}" Width="75"/>
+                                <GridViewColumn x:Name="SessionDate" Header="Дата" DisplayMemberBinding="{Binding Path=Date, StringFormat='dd.MM.yy'}" Width="75"/>
                                 <GridViewColumn x:Name="SessionStart" Header="Начало" DisplayMemberBinding="{Binding Path=Start, StringFormat='HH:mm:ss'}" Width="100"/>
                                 <GridViewColumn x:Name="SessionHall" Header="Зал" DisplayMemberBinding="{Binding Path=Hall.Name}" Width="100"/>
                                 <GridViewColumn x:Name="SessionFilm" Header="Фильм" DisplayMemberBinding="{Binding Path=Film.Name}" Width="300"/>

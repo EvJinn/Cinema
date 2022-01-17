@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace Cinema.Context
 {
@@ -31,7 +33,7 @@ namespace Cinema.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(_configuration["DbConnectionString"]);
+            optionsBuilder.UseNpgsql(_configuration["DbConnectionString"]).LogTo(mes => Debug.WriteLine(mes), LogLevel.Information).EnableSensitiveDataLogging();
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
